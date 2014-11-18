@@ -1,0 +1,431 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>文件项目 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="John Doe">
+    
+    <meta name="description" content="Cab 文件项目
+
+(http://technet.microsoft.com/zh-cn/windows/fwb783c5)使用 Cab 项目，可以创建 .Cab 文件，以便对可以从 Web 服务器下载到 Web 浏览器的 ActiveX 控件进行打包。与其他部署项目类型不同，没有提供处理 CAB">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/18/Visual Studio 中的部署 - Cab 文件项目/" title="文件项目" itemprop="url">文件项目</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yoursite.com/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-18T09:32:39.000Z" itemprop="datePublished"> Published Nov 18 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Cab_文件项目"><span class="toc-number">1.</span> <span class="toc-text">Cab 文件项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建或添加_Cab_项目"><span class="toc-number">2.</span> <span class="toc-text">创建或添加 Cab 项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建新的_Cab_项目"><span class="toc-number">2.1.</span> <span class="toc-text">创建新的 Cab 项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向解决方案中添加现有的_cab_项目"><span class="toc-number">2.2.</span> <span class="toc-text">向解决方案中添加现有的 cab 项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#演练：创建_Cab_文件"><span class="toc-number">3.</span> <span class="toc-text">演练：创建 Cab 文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为_ActiveX_控件创建_Cab_项目"><span class="toc-number">3.1.</span> <span class="toc-text">为 ActiveX 控件创建 Cab 项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建_Web_应用程序"><span class="toc-number">3.2.</span> <span class="toc-text">创建 Web 应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试安装"><span class="toc-number">3.3.</span> <span class="toc-text">测试安装</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="Cab_文件项目">Cab 文件项目</h2>
+<hr>
+<p>(<a href="http://technet.microsoft.com/zh-cn/windows/fwb783c5" target="_blank" rel="external">http://technet.microsoft.com/zh-cn/windows/fwb783c5</a>)<br>使用 Cab 项目，可以创建 <code>.Cab</code> 文件，以便对可以从 Web 服务器下载到 Web 浏览器的 ActiveX 控件进行打包。<br>与其他部署项目类型不同，没有提供处理 CAB 项目的编辑器。文件和项目输出可以添加到“解决方案资源管理器”的 Cab 项目中，属性可以在“属性”窗口或“项目属性”页中设置。<br>CAB 项目的属性允许您指定压缩级别、实现 Authenticode 签名、设置显示名称和版本信息，以及指定依赖文件在 Web 上的位置。</p>
+<h2 id="创建或添加_Cab_项目">创建或添加 Cab 项目</h2>
+<hr>
+<p>(<a href="http://technet.microsoft.com/zh-cn/magazine/aa291420(VS.71).aspx" target="_blank" rel="external">http://technet.microsoft.com/zh-cn/magazine/aa291420(VS.71).aspx</a>)</p>
+<p>Cab 项目用于创建压缩 (.cab) 文件，这些文件用于将组件下载到 Web 浏览器中。如果希望代码在客户端计算机而不是服务器上运行时，应使用此选项。</p>
+<h3 id="创建新的_Cab_项目">创建新的 Cab 项目</h3>
+<ol>
+<li>在“文件”菜单上指向“添加项目”，然后单击“新建项目”。</li>
+<li>在产生的“添加新项目”对话框中，选择“安装和部署项目”文件夹。 </li>
+<li>选择“Cab 项目”。</li>
+</ol>
+<h3 id="向解决方案中添加现有的_cab_项目">向解决方案中添加现有的 cab 项目</h3>
+<ol>
+<li>在“文件”菜单上指向“添加项目”，然后单击“现有项目”。</li>
+<li>在产生的“添加现有项目”对话框中，浏览到 Cab 项目所在的位置后单击“打开”。</li>
+</ol>
+<h2 id="演练：创建_Cab_文件">演练：创建 Cab 文件</h2>
+<hr>
+<p>以下演练演示为 ActiveX 控件创建 CAB 文件，并将其部署到 Web 站点以便可以下载到最终用户的浏览器中。</p>
+<h3 id="为_ActiveX_控件创建_Cab_项目">为 ActiveX 控件创建 Cab 项目</h3>
+<ol>
+<li>在“文件”菜单上指向“新建”，然后选择“项目”。</li>
+<li>在“新建项目”对话框中，选择“项目类型”窗格中的“安装和部署项目”，然后选择“模板”窗格中的“Cab 项目”。在“名称”框中键入 AXControl。</li>
+<li>单击“确定”关闭对话框。</li>
+<li>在解决方案资源管理器中，选择“AXControl”项目。在“项目”菜单上，选择“添加”-&gt;“文件”。</li>
+<li>在“添加文件”对话框中，浏览并找到 ActiveX 控件 (.ocx)，然后单击“确定”关闭对话框。</li>
+<li>在“项目”菜单上，选择“属性”。</li>
+<li>在“项目属性”对话框中，选中“Authenticode 签名”复选框，并输入“证书文件”、“私钥文件”和“时间戳服务器”。单击“确定”关闭对话框。</li>
+<li>在“生成”菜单上，选择“生成 AXControl”。</li>
+</ol>
+<h3 id="创建_Web_应用程序">创建 Web 应用程序</h3>
+<ol>
+<li>在“文件”菜单上，选择“添加项目”-&gt;“新建项目”。</li>
+<li>在“添加新项目”对话框中，选择“项目类型”窗格中的“Visual Basic 项目”，然后选择“模板”窗格中的“ASP.NET Web 应用程序”。在“位置”框中，键入 <a href="http://localhost/AXControlWeb。" target="_blank" rel="external">http://localhost/AXControlWeb。</a></li>
+<li>单击“确定”关闭对话框。</li>
+<li>选择“工具箱”窗口。在“工具”菜单上选择“添加/移除工具箱项”。</li>
+<li>在“自定义工具箱”对话框中，选择在前一过程中使用的同一个 ActiveX 控件。</li>
+<li>单击“确定”关闭对话框。</li>
+<li>在“工具箱”窗口中，选择 ActiveX 控件并将其拖到“Webform1.aspx”设计器中。</li>
+<li>在“项目”菜单上，选择“添加现有项”。</li>
+<li>在“添加现有项”对话框中，定位到项目目录并查找生成的 Cab 文件。默认路径将是 \documents and settings\yourloginname\AXControl\project configuration\AXControl.Cab。默认“项目配置”是“调试”。单击“确定”关闭对话框。</li>
+<li>在“Webform1.aspx”设计器中选择 ActiveX 控件。</li>
+<li>在“属性”窗口中，选择 codebase 属性并单击“省略号”（）按钮。</li>
+<li>在“创建 URL”对话框中，从“目录”窗格中选择“AXControl.Cab”，然后单击“确定”关闭对话框。</li>
+<li>在“生成”菜单上，选择“生成解决方案”。</li>
+</ol>
+<h3 id="测试安装">测试安装</h3>
+<p>浏览至未注册 ActiveX 控件的计算机的 Web 页 (<a href="http://computername/AXControlWeb/Webform1.aspx)。请确认控件已安装在该计算机上且“Authenticode”对话框已显示。" target="_blank" rel="external">http://computername/AXControlWeb/Webform1.aspx)。请确认控件已安装在该计算机上且“Authenticode”对话框已显示。</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/-cab/">.cab</a>
+  </div>
+
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2014/11/18/Visual Studio 中的部署 - Cab 文件项目/" data-title="文件项目 | Hexo" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/11/18/Dll学习总结/"  title="Dll学习总结">
+ <strong>下一篇：</strong><br/> 
+ <span>Dll学习总结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Cab_文件项目"><span class="toc-number">1.</span> <span class="toc-text">Cab 文件项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建或添加_Cab_项目"><span class="toc-number">2.</span> <span class="toc-text">创建或添加 Cab 项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建新的_Cab_项目"><span class="toc-number">2.1.</span> <span class="toc-text">创建新的 Cab 项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向解决方案中添加现有的_cab_项目"><span class="toc-number">2.2.</span> <span class="toc-text">向解决方案中添加现有的 cab 项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#演练：创建_Cab_文件"><span class="toc-number">3.</span> <span class="toc-text">演练：创建 Cab 文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#为_ActiveX_控件创建_Cab_项目"><span class="toc-number">3.1.</span> <span class="toc-text">为 ActiveX 控件创建 Cab 项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建_Web_应用程序"><span class="toc-number">3.2.</span> <span class="toc-text">创建 Web 应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试安装"><span class="toc-number">3.3.</span> <span class="toc-text">测试安装</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/-cab/" title=".cab">.cab<sup>1</sup></a></li>
+		
+			<li><a href="/tags/C-DLL/" title="C++ DLL">C++ DLL<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            <a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a>
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2014 
+		
+		<a href="http://yoursite.com/about" target="_blank" title="John Doe">John Doe</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+  </body>
+</html>

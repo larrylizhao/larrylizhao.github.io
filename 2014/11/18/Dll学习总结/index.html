@@ -10,14 +10,12 @@
     <meta name="author" content="John Doe">
     
     <meta name="description" content="最近在弄vb+vc的一个打印程序，两者的协同工作用到了dll方面的内容，所以学习的时候在这里做一下笔记。
-
-
 VB和VC共同编程的3种方式
 
 
 VC生成DLL，在VB中调用DLL
 VC生成ActiveX控件(.ocx)，在VB中插入
-在VC中生成ActiveX Automation服务器，在VB中调">
+在VC中生成ActiveX Automation服务器，在VB中调用相">
     
     
     
@@ -95,23 +93,20 @@ VC生成ActiveX控件(.ocx)，在VB中插入
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#VB和VC共同编程的3种方式"><span class="toc-number">1.</span> <span class="toc-text">VB和VC共同编程的3种方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#先说第一种方法的VC++的编程"><span class="toc-number">2.</span> <span class="toc-text">先说第一种方法的VC++的编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#再谈谈VB的编程"><span class="toc-number">3.</span> <span class="toc-text">再谈谈VB的编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下面在说几个可能遇到的问题"><span class="toc-number">4.</span> <span class="toc-text">下面在说几个可能遇到的问题</span></a></li></ol>
 		
 		</div>
 		
 		<p>最近在弄vb+vc的一个打印程序，两者的协同工作用到了dll方面的内容，所以学习的时候在这里做一下笔记。</p>
+<h2 id="VB和VC共同编程的3种方式">VB和VC共同编程的3种方式</h2>
 <hr>
-<blockquote>
-<p>VB和VC共同编程的3种方式</p>
-</blockquote>
 <ol>
 <li>VC生成DLL，在VB中调用DLL</li>
 <li>VC生成ActiveX控件(.ocx)，在VB中插入</li>
 <li>在VC中生成ActiveX Automation服务器，在VB中调用<br>相对而言，第一种方法对VC编程者的要求最低。</li>
 </ol>
-<blockquote>
-<p>先说第一种方法的VC++的编程</p>
-</blockquote>
+<h2 id="先说第一种方法的VC++的编程">先说第一种方法的VC++的编程</h2>
+<hr>
 <p>首先在VC++中生成Win32 DLL工程。在这个工程中添加几个函数供VB用户调用。一个DLL中的函数要想被VB调用，必须满足两个条件：</p>
 <ul>
 <li>一是调用方式为stdcall，</li>
@@ -125,9 +120,8 @@ VC生成ActiveX控件(.ocx)，在VB中插入
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="constant">LIBRARY</span>      <span class="string">"mydll.DLL"</span></div><div class="line"></div><div class="line"><span class="constant">EXPORTS</span></div><div class="line">	<span class="constant">Sample</span>   <span class="variable">@1</span></div></pre></td></tr></table></figure>
 
 <p>这里的<code>sample</code>是你要在VB中调用的函数名，<code>@1</code>表示该函数在DLL中的编号，每个函数都不一样。注意这里的函数名是区分大小写的。</p>
-<blockquote>
-<p>再谈谈VB的编程</p>
-</blockquote>
+<h2 id="再谈谈VB的编程">再谈谈VB的编程</h2>
+<hr>
 <p>VB调用DLL的方法和调用Windows API的方法是一样的，一般在VB的书中有介绍。对于上面一个例子，先要声明VC函数： </p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Declare</span> <span class="keyword">Function</span> sample1 <span class="keyword">Lib</span> <span class="string">"mydll.dll"</span> (<span class="keyword">ByVal</span> nLen <span class="keyword">As</span> <span class="built_in">Integer</span>, buffer <span class="keyword">As</span> <span class="built_in">Integer</span>) <span class="keyword">As</span> <span class="built_in">Integer</span></div></pre></td></tr></table></figure>
 
@@ -136,9 +130,8 @@ VC生成ActiveX控件(.ocx)，在VB中插入
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">sample</span> <span class="number">10</span>, a(<span class="number">0</span>)</div></pre></td></tr></table></figure>
 
 <p>这里的a()数组是用来存放数据的，10为数组长度，这里的第二个参数不能是a()，而必须是要传递的数据中的第一个。这是VB编程的关键。</p>
-<blockquote>
-<p>下面在说几个可能遇到的问题</p>
-</blockquote>
+<h2 id="下面在说几个可能遇到的问题">下面在说几个可能遇到的问题</h2>
+<hr>
 <ol>
 <li>一个问题是VB可能报告找不到dll，你可以把dll放到system目录下，并确保VB的Declare语句正确。</li>
 <li>另一个问题是VB报告找不到需要的函数，这通常是因为在VC中*.def文件没设置。</li>
@@ -170,6 +163,14 @@ VC生成ActiveX控件(.ocx)，在VB中插入
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2014/11/18/Visual Studio 中的部署 - Cab 文件项目/" title="文件项目">
+  <strong>上一篇：</strong><br/>
+  <span>
+  文件项目</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2014/11/17/Markdown语言说明/"  title="Markdown语言说明">
@@ -189,7 +190,7 @@ VC生成ActiveX控件(.ocx)，在VB中插入
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#VB和VC共同编程的3种方式"><span class="toc-number">1.</span> <span class="toc-text">VB和VC共同编程的3种方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#先说第一种方法的VC++的编程"><span class="toc-number">2.</span> <span class="toc-text">先说第一种方法的VC++的编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#再谈谈VB的编程"><span class="toc-number">3.</span> <span class="toc-text">再谈谈VB的编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下面在说几个可能遇到的问题"><span class="toc-number">4.</span> <span class="toc-text">下面在说几个可能遇到的问题</span></a></li></ol>
  
   </div>
 
@@ -203,6 +204,8 @@ VC生成ActiveX控件(.ocx)，在VB中插入
 <div class="tagslist">
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
+		
+			<li><a href="/tags/-cab/" title=".cab">.cab<sup>1</sup></a></li>
 		
 			<li><a href="/tags/C-DLL/" title="C++ DLL">C++ DLL<sup>1</sup></a></li>
 		
