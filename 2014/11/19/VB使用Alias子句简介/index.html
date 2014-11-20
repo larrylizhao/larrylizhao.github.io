@@ -4,10 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>test | Hexo</title>
+    <title>VB使用Alias子句简介 | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="John Doe">
+    
+    <meta name="description" content="Declare语句中的Alias子句是一个可选的部分，用户可以通过它所标识的别名对动态 库中的函数进行引用。例如，在下面的语句中，声明了一个在VB中名为MyFunction的函数，而它在动态库Mydll.dll中最初的名字是MyFunctionX。
+1Private Declare Function">
     
     
     
@@ -68,14 +71,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/17/test/" title="test" itemprop="url">test</a>
+      <a href="/2014/11/19/VB使用Alias子句简介/" title="VB使用Alias子句简介" itemprop="url">VB使用Alias子句简介</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://yoursite.com/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
 		
   <p class="article-time">
-    <time datetime="2014-11-17T07:04:08.000Z" itemprop="datePublished"> Published Nov 17 2014</time>
+    <time datetime="2014-11-19T10:21:37.000Z" itemprop="datePublished"> Published Nov 19 2014</time>
     
   </p>
 </header>
@@ -85,22 +88,57 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#处理使用字符串的系统Windows_API过程"><span class="toc-number">1.</span> <span class="toc-text">处理使用字符串的系统Windows API过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数名是不标准的名称"><span class="toc-number">2.</span> <span class="toc-text">函数名是不标准的名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用序号标识DLL过程"><span class="toc-number">3.</span> <span class="toc-text">使用序号标识DLL过程</span></a></li></ol>
 		
 		</div>
 		
-		  
+		<p>Declare语句中的Alias子句是一个可选的部分，用户可以通过它所标识的别名对动态 库中的函数进行引用。例如，在下面的语句中，声明了一个在VB中名为MyFunction的函数，而它在动态库Mydll.dll中最初的名字是MyFunctionX。</p>
+<figure class="highlight vb"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Private</span> <span class="keyword">Declare</span> <span class="keyword">Function</span> MyFunction <span class="keyword">Lib</span> <span class="string">"Mydll.dll"</span> _Alias <span class="string">"MyFunctionX"</span> ( ) <span class="keyword">As</span> <span class="built_in">Long</span></div></pre></td></tr></table></figure>
+
+<p>通常在以下几种情况时需要VB使用Alias子句：</p>
+<h2 id="处理使用字符串的系统Windows_API过程">处理使用字符串的系统Windows API过程</h2>
+<hr>
+<p>如果调用的系统Windows API过程要使用字符串，那么声明语句中必须增加一个Alias 子句，以指定正确的字符集。包含字符串的系统WindowsAPI函数实际有两种格式：ANSI和Unicode。因此，在Windows头文件中，每个包含字符串的函数都同时有ANSI版本和Unicode版本。例如，下面是SetWindowText函数的两种C语言描述。可以看到，第一个描述将函数定义为SetWindowTextA，尾部的”A”表明它是一个ANSI函数：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WINUSERAPI <span class="built_in">BOOL</span> WINAPI SetWindowTextA(HWND hWnd, LPCSTR lpString);</div></pre></td></tr></table></figure>
+
+<p>第二个描述将它定义为 SetWindowTextW， 尾部的”W” 表明它是一个 Unicode 函数：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WINUSERAPI <span class="built_in">BOOL</span> WINAPI SetWindowTextW(HWND hWnd, LPCWSTR lpString);</div></pre></td></tr></table></figure>
+
+<p>因为两个函数实际的名称都不是”SetWindowText”，要引用正确的函数就必 须增加一个Alias子句：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Private</span> <span class="keyword">Declare</span> <span class="keyword">Function</span> SetWindowText <span class="keyword">Lib</span> <span class="string">"user32"</span> <span class="keyword">Alias</span> <span class="string">"SetWindowTextA"</span> (<span class="keyword">ByVal</span> hwnd <span class="keyword">As</span> <span class="built_in">Long</span>, <span class="keyword">ByVal</span> lpString <span class="keyword">As</span> <span class="built_in">String</span>) <span class="keyword">As</span> <span class="built_in">Long</span></div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>应当注意，对于VB中使用的系统WindowsAPI函数，应该指定函数的ANSI版本，因为只 有WindowsNT才支持Unicode版本，而Windows95不支持这个版本。仅当应用程序只运行 在WindowsNT平台上的时候才可以使用Unicode版本。</p>
+</blockquote>
+<h2 id="函数名是不标准的名称">函数名是不标准的名称</h2>
+<hr>
+<p>有时，个别的DLL过程的名称不是有效的标识符。例如，它可能包含了非法的字符（如连字符），或者名称是VB的关键字（如GetObject）。在这种情况下，可以使用Alias关键字。例如，操作环境DLLs中的某些过程名以下划线开始。尽管在VB标识符中允许使用标识符，但是下划线不能作为标识符的第一个字符。为了使用这种过程，必须先声明一个名称合法的过程，然后VB使用Alias子句引用过程的真实名称：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Declare</span> <span class="keyword">Function</span> lopen <span class="keyword">Lib</span> <span class="string">"kernel32"</span> <span class="keyword">Alias</span> <span class="string">"_lopen"</span> (<span class="keyword">ByVal</span> lpPathName <span class="keyword">As</span> <span class="built_in">String</span>, <span class="keyword">ByVal</span> iReadWrite <span class="keyword">As</span> <span class="built_in">Long</span>) <span class="keyword">As</span> <span class="built_in">Long</span></div></pre></td></tr></table></figure>
+
+<p>在上例中，lopen是VB中使用的过程名称。而_lopen则是动态连接库中可以识别的名称。</p>
+<h2 id="使用序号标识DLL过程">使用序号标识DLL过程</h2>
+<hr>
+<p>要使用序号来声明DLL过程，Alias子句中的字符串需要包含过程的序号，并在序号的 前面加一个数字标记字符(#)。例如，Windowskernel中的GetWindowsDirectory函数的序 号为432；可以用下面的语句来声明该DLL过程：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Declare</span> <span class="keyword">Function</span> GetWindowsDirectory <span class="keyword">Lib</span> <span class="string">"kernel32"</span> <span class="keyword">Alias</span> <span class="string">"#432"</span> (<span class="keyword">ByVal</span> lpBuffer <span class="keyword">As</span> <span class="built_in">String</span>, <span class="keyword">ByVal</span> nSize <span class="keyword">As</span> <span class="built_in">Long</span>) <span class="keyword">As</span> <span class="built_in">Long</span></div></pre></td></tr></table></figure>
+
+<p>在这里，可以使用任意的合法名称作为过程的名称，VB将用序号在DLL中寻找过程。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/vb/">vb</a>
+  </div>
 
 </div>
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2014/11/17/test/" data-title="test | Hexo" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2014/11/19/VB使用Alias子句简介/" data-title="VB使用Alias子句简介 | Hexo" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -110,18 +148,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/11/17/Markdown语言说明/" title="Markdown语言说明">
+ <a href="/2014/11/20/C++中域运算符/" title="">
   <strong>上一篇：</strong><br/>
   <span>
-  Markdown语言说明</span>
+  (no title)</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/11/11/hello-world/"  title="Hello World">
+<a href="/2014/11/19/我把看vc遇到的各种鬼全都丢在这里面/"  title="我把看vc遇到的各种鬼全都丢在这里面...!">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>我把看vc遇到的各种鬼全都丢在这里面...!
 </span>
 </a>
 </div>
@@ -136,7 +174,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#处理使用字符串的系统Windows_API过程"><span class="toc-number">1.</span> <span class="toc-text">处理使用字符串的系统Windows API过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数名是不标准的名称"><span class="toc-number">2.</span> <span class="toc-text">函数名是不标准的名称</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用序号标识DLL过程"><span class="toc-number">3.</span> <span class="toc-text">使用序号标识DLL过程</span></a></li></ol>
  
   </div>
 
@@ -151,9 +189,11 @@
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
+			<li><a href="/tags/C-DLL/" title="C++ DLL">C++ DLL<sup>1</sup></a></li>
+		
 			<li><a href="/tags/-cab/" title=".cab">.cab<sup>1</sup></a></li>
 		
-			<li><a href="/tags/C-DLL/" title="C++ DLL">C++ DLL<sup>1</sup></a></li>
+			<li><a href="/tags/vb/" title="vb">vb<sup>1</sup></a></li>
 		
 		</ul>
 </div>
