@@ -4,14 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hexo</title>
+    <title>C++中域运算符:: | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="John Doe">
     
-    <meta name="description" content="title: “C++中域运算符::”date: 2014-11-20 10:58:20
-tags:C++
-::是域运算符，一个用法是，如果在局部有一个变量n，还有一个全局变量n，即两个同名，你要想访问全局的就要写::n,写n就是局部变量.另外一个就是控制命名空间，例如C++中的cin和cout属于">
+    <meta name="description" content="::是域运算符，一个用法是，如果在局部有一个变量n，还有一个全局变量n，即两个同名，你要想访问全局的就要写::n,写n就是局部变量.另外一个就是控制命名空间，例如C++中的cin和cout属于std命名空间，就要写std::cin和std::cout，除非你在前面写了using namespace ">
     
     
     
@@ -72,7 +70,7 @@ tags:C++
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/20/C-中域运算符/" title="" itemprop="url"></a>
+      <a href="/2014/11/20/C++中域运算符/" title="C++中域运算符::" itemprop="url">C++中域运算符::</a>
   </h1>
   <p class="article-author">By
        
@@ -89,13 +87,11 @@ tags:C++
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:C++"><span class="toc-number">1.</span> <span class="toc-text">tags:C++</span></a></li></ol>
+			
 		
 		</div>
 		
-		<p>title: “C++中域运算符::”<br>date: 2014-11-20 10:58:20</p>
-<h2 id="tags:C++">tags:C++</h2>
-<p><code>::</code>是域运算符，一个用法是，如果在局部有一个变量n，还有一个全局变量n，即两个同名，你要想访问全局的就要写<code>::n</code>,写<code>n</code>就是局部变量.另外一个就是控制命名空间，例如C++中的cin和cout属于std命名空间，就要写<code>std::cin</code>和<code>std::cout</code>，除非你在前面写了<code>using namespace std</code>;就可以免除每次写<code>std::</code>的麻烦了。</p>
+		<p><code>::</code>是域运算符，一个用法是，如果在局部有一个变量n，还有一个全局变量n，即两个同名，你要想访问<strong>全局</strong>的就要写<code>::n</code>,写<code>n</code>就是<strong>局部变量</strong>.另外一个就是控制命名空间，例如C++中的cin和cout属于std命名空间，就要写<code>std::cin</code>和<code>std::cout</code>，除非你在前面写了<code>using namespace std</code>;就可以免除每次写<code>std::</code>的麻烦了。</p>
 <p>一般你写一个类中的函数，也会用到::。这个运算符表示是这个类中的函数，比如说<code>people</code>类中的<code>name</code>函数就可以写成 </p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="literal">void</span> People <span class="tag">:: name</span>() {}</div></pre></td></tr></table></figure>
 
@@ -105,12 +101,17 @@ tags:C++
 <div class="article-catetags">
 
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/C/">C++</a>
+  </div>
+
 </div>
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2014/11/20/C-中域运算符/" data-title="Hexo" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2014/11/20/C++中域运算符/" data-title="C++中域运算符:: | Hexo" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -138,7 +139,7 @@ tags:C++
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:C++"><span class="toc-number">1.</span> <span class="toc-text">tags:C++</span></a></li></ol>
+ 
  
   </div>
 
@@ -153,11 +154,13 @@ tags:C++
 	<p class="asidetitle">Tags</p>
 		<ul class="clearfix">
 		
-			<li><a href="/tags/C-DLL/" title="C++ DLL">C++ DLL<sup>1</sup></a></li>
-		
 			<li><a href="/tags/-cab/" title=".cab">.cab<sup>1</sup></a></li>
 		
+			<li><a href="/tags/C-DLL/" title="C++ DLL">C++ DLL<sup>1</sup></a></li>
+		
 			<li><a href="/tags/vb/" title="vb">vb<sup>1</sup></a></li>
+		
+			<li><a href="/tags/C/" title="C++">C++<sup>1</sup></a></li>
 		
 		</ul>
 </div>
