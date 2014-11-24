@@ -4,15 +4,20 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>我把看vc遇到的各种鬼全都丢在这里面...! | Larry&#39;s Hexo!</title>
+    <title>清空StringBuffer的几种方法 | Larry&#39;s Hexo!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Larry Li">
     
-    <meta name="description" content="最近在看一个ClientPrint程序涉及到vc+vb编程，各种以前没有见到过得奇怪的东东我全部摆在这里留念了！
-CWPSTRUCT structure
+    <meta name="description" content="在字符串拼接的时候经常用到StringBuffer,拼接过程中有时需要清空并重用，记录一下清空StringBuffer的几种方法
+delete方法
 
-Defines the message parameters passed to a WH_CALLWNDPROC hook procedure">
+1delete(int start, int end)
+
+
+移除此序列的子字符串中的字符
+
+1234StringBuffer my_StringBuf">
     
     
     
@@ -73,14 +78,14 @@ Defines the message parameters passed to a WH_CALLWNDPROC hook procedure">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/19/我把看vc遇到的各种鬼全都丢在这里面/" title="我把看vc遇到的各种鬼全都丢在这里面...!" itemprop="url">我把看vc遇到的各种鬼全都丢在这里面...!</a>
+      <a href="/2014/11/24/清空StringBuffer的几种方法/" title="清空StringBuffer的几种方法" itemprop="url">清空StringBuffer的几种方法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://yoursite.com/about" title="Larry Li" target="_blank" itemprop="author">Larry Li</a>
 		
   <p class="article-time">
-    <time datetime="2014-11-19T02:20:25.000Z" itemprop="datePublished"> Published Nov 19 2014</time>
+    <time datetime="2014-11-24T08:09:26.000Z" itemprop="datePublished"> Published Nov 24 2014</time>
     
   </p>
 </header>
@@ -90,36 +95,41 @@ Defines the message parameters passed to a WH_CALLWNDPROC hook procedure">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CWPSTRUCT_structure"><span class="toc-number">1.</span> <span class="toc-text">CWPSTRUCT structure</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Syntax:"><span class="toc-number">1.1.</span> <span class="toc-text">Syntax:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Members:"><span class="toc-number">1.2.</span> <span class="toc-text">Members:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EnumChildWindows"><span class="toc-number">2.</span> <span class="toc-text">EnumChildWindows</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CallWndProc_callback_function"><span class="toc-number">3.</span> <span class="toc-text">CallWndProc callback function</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Syntax"><span class="toc-number">3.1.</span> <span class="toc-text">Syntax</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Parameters"><span class="toc-number">3.2.</span> <span class="toc-text">Parameters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Return_Value"><span class="toc-number">3.3.</span> <span class="toc-text">Return Value</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete方法"><span class="toc-number">1.</span> <span class="toc-text">delete方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setLength方法"><span class="toc-number">2.</span> <span class="toc-text">setLength方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#new方法"><span class="toc-number">3.</span> <span class="toc-text">new方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#几种方法效率比较"><span class="toc-number">4.</span> <span class="toc-text">几种方法效率比较</span></a></li></ol>
 		
 		</div>
 		
-		<p>最近在看一个ClientPrint程序涉及到vc+vb编程，各种以前没有见到过得奇怪的东东我全部摆在这里留念了！</p>
-<h2 id="CWPSTRUCT_structure">CWPSTRUCT structure</h2>
+		<p>在字符串拼接的时候经常用到<strong>StringBuffer</strong>,拼接过程中有时需要清空并重用，记录一下清空<strong>StringBuffer</strong>的几种方法</p>
+<h2 id="delete方法"><code>delete</code>方法</h2>
 <hr>
-<p>Defines the message parameters passed to a WH_CALLWNDPROC hook procedure,<br><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644975%28v=vs.85%29.aspx" target="_blank" rel="external">CallWndProc</a>.</p>
-<h3 id="Syntax:">Syntax:</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> tagCWPSTRUCT {</div><div class="line">  LPARAM lParam;</div><div class="line">  WPARAM wParam;</div><div class="line">  UINT   message;</div><div class="line">  HWND   hwnd;</div><div class="line">} CWPSTRUCT, *PCWPSTRUCT, *LPCWPSTRUCT;</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">delete</span>(<span class="built_in">int</span> <span class="keyword">start</span>, <span class="built_in">int</span> <span class="keyword">end</span>)</span></div></pre></td></tr></table></figure>
 
-<h3 id="Members:">Members:</h3>
-<p><em>lParam</em><br>　　　Type: <strong>LPARAM</strong><br>　　　Additional information about the message. The exact meaning depends on the <strong>message</strong> value.<br><em>wParam</em><br>　　　Type: <strong>WPARAM</strong><br>　　　Additional information about the message. The exact meaning depends 　　　on the <strong>message</strong> value.<br><em>message</em><br>　　　Type: <strong>UINT</strong><br>　　　The message.<br><em>hwnd</em><br>　　　Type: <strong>HWND</strong><br>　　　A handle to the window to receive the message.</p>
-<h2 id="EnumChildWindows">EnumChildWindows</h2>
-<hr>
-<pre><code>          <span class="title">jiguo</span> 
-          fjislfajsd
-          fsafijsdf
-</code></pre><h2 id="CallWndProc_callback_function">CallWndProc callback function</h2>
-<hr>
-<p>An application-defined or library-defined callback function used with the <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644990%28v=vs.85%29.aspx" target="_blank" rel="external">SetWindowsHookEx</a> function. The system calls this function before calling the window procedure to process a message sent to the thread.</p>
-<p>The <strong>HOOKPROC</strong> type defines a pointer to this callback function. <code>CallWndProc</code> is a placeholder for the application-defined or library-defined function name.</p>
-<h3 id="Syntax">Syntax</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">LRESULT CALLBACK CallWndProc(</div><div class="line">  _In_  <span class="keyword">int</span> nCode,</div><div class="line">  _In_  WPARAM wParam,</div><div class="line">  _In_  LPARAM lParam</div><div class="line">);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>移除此序列的子字符串中的字符</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">StringBuffer my_StringBuffer = <span class="keyword">new</span> StringBuffer();</div><div class="line">my_StringBuffer.<span class="keyword">append</span>(<span class="string">'helloworld'</span>);    <span class="comment">//添加字符串到StringBuffer中</span></div><div class="line"><span class="keyword">int</span>  sb_length = my_StringBuffer.length();<span class="comment">// 取得字符串的长度</span></div><div class="line">my_StringBuffer.<span class="keyword">delete</span>(<span class="number">0</span>,sb_length);    <span class="comment">//删除字符串从0~sb_length-1处的内容 (这个方法就是用来清除StringBuffer中的内容的)</span></div></pre></td></tr></table></figure>
 
-<h3 id="Parameters">Parameters</h3>
-<p>nCode [in]<br>　　　Type: <strong>int</strong><br>　　　Specifies whether the hook procedure must process the message. If <em>nCode</em> is<br>　　　<strong>HC_ACTION</strong>, the hook procedure must process themessage. If <em>nCode</em> is less<br>　　　than zero, the hook procedure must passthe message to the <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644974%28v=vs.85%29.aspx" target="_blank" rel="external">CallNextHookEx</a><br>　　　function without further processing and must return the value returned by<br>　　　<code>CallNextHookEx</code>.<br>wParam [in]<br>　　　Type: <strong>WPARAM</strong><br>　　　Specifies whether the message was sent by the current thread. If the message<br>　　　was sent by the current thread, it is nonzero; otherwise, it is zero.<br>lParam [in]<br>　　　Type: <strong>LPARAM</strong><br>　　　A pointer to a <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644964%28v=vs.85%29.aspx" target="_blank" rel="external">CWPSTRUCT</a> structure that contains details about the message.</p>
-<h3 id="Return_Value">Return Value</h3>
-<p>Type: <strong>LRESULT</strong><br>If nCode is less than zero, the hook procedure must return the value returned by <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644974%28v=vs.85%29.aspx" target="_blank" rel="external">CallNextHookEx</a>.</p>
-<p>If nCode is greater than or equal to zero, it is highly recommended that you call <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644974%28v=vs.85%29.aspx" target="_blank" rel="external">CallNextHookEx</a> and return the value it returns; otherwise, other applications that have installed <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644959%28v=vs.85%29.aspx#wh_callwndproc_wh_callwndprocret" target="_blank" rel="external">WH_CALLWNDPROC</a> hooks will not receive hook notifications and may behave incorrectly as a result. If the hook procedure does not call <strong>CallNextHookEx</strong>, the return value should be zero.</p>
+<h2 id="setLength方法"><code>setLength</code>方法</h2>
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">set</span>Length(int newLength)</div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>设置字符序列的长度。</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">my_StringBuffer.setLength(<span class="number">0</span>);   <span class="comment">//设置StringBuffer变量的长度为0</span></div></pre></td></tr></table></figure>
+
+<h2 id="new方法"><code>new</code>方法</h2>
+<p>直接用<code>new</code>清空<strong>StringBuffer</strong>中的内容</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">my_StringBuffer </span>=<span class="string"> new StringBuffer()</span></div></pre></td></tr></table></figure>
+
+<h2 id="几种方法效率比较">几种方法效率比较</h2>
+<p>测试程序：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testStringBufferclear</span>() {</div><div class="line">     StringBuffer sbf = <span class="keyword">new</span>  StringBuffer(<span class="string">"wwwwww"</span>);</div><div class="line">     StringBuffer sbi = <span class="keyword">new</span>  StringBuffer(<span class="string">"wwwwww"</span>);</div><div class="line">     <span class="keyword">long</span> s1 = System.currentTimeMillis();</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">500000</span>; i++) {</div><div class="line">      sbi.setLength(<span class="number">0</span>);</div><div class="line">     }</div><div class="line">     <span class="keyword">long</span> s11 = System.currentTimeMillis();</div><div class="line">     System.<span class="keyword">out</span>.println(<span class="string">"StringBuffer-setLength:"</span> + (s11 - s1));</div><div class="line">     s1 = System.currentTimeMillis();</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">500000</span>; i++) {</div><div class="line">      sbf.delete(<span class="number">0</span>, sbf.length());</div><div class="line">     }</div><div class="line">     s11 = System.currentTimeMillis();</div><div class="line">     System.<span class="keyword">out</span>.println(<span class="string">"StringBuffer--delete:"</span> + (s11 - s1));</div><div class="line">     s1 = System.currentTimeMillis();</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">500000</span>; i++) {</div><div class="line">      sbf = <span class="keyword">new</span> StringBuffer(<span class="string">""</span>);</div><div class="line">     }</div><div class="line">     s11 = System.currentTimeMillis();</div><div class="line">     System.<span class="keyword">out</span>.println(<span class="string">"StringBuffer--new StringBuffer:"</span> + (s11 - s1));</div><div class="line">    }</div></pre></td></tr></table></figure>
+
+<p>测试结果：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">StringBuffer-setLength</span><span class="pseudo">:63</span></div><div class="line"><span class="tag">StringBuffer--delete</span><span class="pseudo">:109</span></div><div class="line"><span class="tag">StringBuffer--new</span> <span class="tag">StringBuffer</span><span class="pseudo">:78</span></div></pre></td></tr></table></figure>
+
+<p>测试结论：<br>要通过使用<code>setLength(0)</code>来清空<strong>StringBuffer</strong>对象中的内容效率最高。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -128,7 +138,7 @@ Defines the message parameters passed to a WH_CALLWNDPROC hook procedure">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/C/">C++</a>
+  <span></span> <a href="/tags/java/">java</a><a href="/tags/String/">String</a>
   </div>
 
 </div>
@@ -136,7 +146,7 @@ Defines the message parameters passed to a WH_CALLWNDPROC hook procedure">
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2014/11/19/我把看vc遇到的各种鬼全都丢在这里面/" data-title="我把看vc遇到的各种鬼全都丢在这里面...! | Larry&#39;s Hexo!" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2014/11/24/清空StringBuffer的几种方法/" data-title="清空StringBuffer的几种方法 | Larry&#39;s Hexo!" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -145,19 +155,11 @@ Defines the message parameters passed to a WH_CALLWNDPROC hook procedure">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/11/19/VB使用Alias子句简介/" title="VB使用Alias子句简介">
-  <strong>上一篇：</strong><br/>
-  <span>
-  VB使用Alias子句简介</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/11/18/Visual Studio 中的部署 - Cab 文件项目/"  title="Visual Studio 中的部署 - Cab 文件项目">
+<a href="/2014/11/20/C++中域运算符/"  title="C++中域运算符::">
  <strong>下一篇：</strong><br/> 
- <span>Visual Studio 中的部署 - Cab 文件项目
+ <span>C++中域运算符::
 </span>
 </a>
 </div>
@@ -172,7 +174,7 @@ Defines the message parameters passed to a WH_CALLWNDPROC hook procedure">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CWPSTRUCT_structure"><span class="toc-number">1.</span> <span class="toc-text">CWPSTRUCT structure</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Syntax:"><span class="toc-number">1.1.</span> <span class="toc-text">Syntax:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Members:"><span class="toc-number">1.2.</span> <span class="toc-text">Members:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EnumChildWindows"><span class="toc-number">2.</span> <span class="toc-text">EnumChildWindows</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CallWndProc_callback_function"><span class="toc-number">3.</span> <span class="toc-text">CallWndProc callback function</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Syntax"><span class="toc-number">3.1.</span> <span class="toc-text">Syntax</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Parameters"><span class="toc-number">3.2.</span> <span class="toc-text">Parameters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Return_Value"><span class="toc-number">3.3.</span> <span class="toc-text">Return Value</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete方法"><span class="toc-number">1.</span> <span class="toc-text">delete方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setLength方法"><span class="toc-number">2.</span> <span class="toc-text">setLength方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#new方法"><span class="toc-number">3.</span> <span class="toc-text">new方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#几种方法效率比较"><span class="toc-number">4.</span> <span class="toc-text">几种方法效率比较</span></a></li></ol>
  
   </div>
 
