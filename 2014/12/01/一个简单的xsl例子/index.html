@@ -1,0 +1,412 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>一个简单的xsl例子 | Larry&#39;s Hexo!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Larry Li">
+    
+    <meta name="description" content="xsl是什么
+
+XSL 之于 XML ,就像 CSS 之于 HTML。它是指可扩展样式表语言 (EXtensible Stylesheet Language)。这是一种用于以可读格式呈现 XML 数据的语言。XSL 实际上包含两个部分：
+
+XSLT – 用于转换 XML 文档的语言
+XPath – ">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Larry&#39;s Hexo!" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Larry&#39;s Hexo!" title="Larry&#39;s Hexo!"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Larry&#39;s Hexo!">Larry&#39;s Hexo!</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/01/一个简单的xsl例子/" title="一个简单的xsl例子" itemprop="url">一个简单的xsl例子</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yoursite.com/about" title="Larry Li" target="_blank" itemprop="author">Larry Li</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-01T04:25:30.000Z" itemprop="datePublished"> Published Dec 1 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xsl是什么"><span class="toc-number">1.</span> <span class="toc-text">xsl是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xsl应用实例"><span class="toc-number">2.</span> <span class="toc-text">xsl应用实例</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="xsl是什么">xsl是什么</h2>
+<hr>
+<p>XSL 之于 XML ,就像 CSS 之于 HTML。它是指可扩展样式表语言 (EXtensible Stylesheet Language)。这是一种用于以可读格式呈现 XML 数据的语言。XSL 实际上包含两个部分：</p>
+<ul>
+<li>XSLT – 用于转换 XML 文档的语言</li>
+<li>XPath – 用于在 XML 文档中导航的语言<br>XSLT 可以将 XML 文档转换为其它 XML 文档、XHTML 输出或简单的文本。这通常是通过将每个 XML 元素转换为 HTML 元素来完成的。由于 XML  标签是用户定义的，浏览器不知道如何解释或呈现每个标签，因此必须使用 XSL。XML 标签的意义是为了方便用户（而不是计算机）理解。<h2 id="xsl应用实例">xsl应用实例</h2>
+</li>
+</ul>
+<hr>
+<p>xml源文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>  </div><div class="line"><span class="pi">&lt;?xml-stylesheet type="text/xsl" href="cdcatalog.xsl"?&gt;</span>  </div><div class="line"><span class="tag">&lt;<span class="title">catalog</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">cd</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>后来<span class="tag">&lt;/<span class="title">title</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">artist</span>&gt;</span>刘若英<span class="tag">&lt;/<span class="title">artist</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">country</span>&gt;</span>台湾<span class="tag">&lt;/<span class="title">country</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">company</span>&gt;</span>不知道<span class="tag">&lt;/<span class="title">company</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">price</span>&gt;</span>1090<span class="tag">&lt;/<span class="title">price</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">year</span>&gt;</span>1985<span class="tag">&lt;/<span class="title">year</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;/<span class="title">cd</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">cd</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>恶狼传说<span class="tag">&lt;/<span class="title">title</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">artist</span>&gt;</span>歌神<span class="tag">&lt;/<span class="title">artist</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">country</span>&gt;</span>香港<span class="tag">&lt;/<span class="title">country</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">company</span>&gt;</span>不知道<span class="tag">&lt;/<span class="title">company</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">price</span>&gt;</span>9900<span class="tag">&lt;/<span class="title">price</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">year</span>&gt;</span>1988<span class="tag">&lt;/<span class="title">year</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;/<span class="title">cd</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">cd</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>mylove<span class="tag">&lt;/<span class="title">title</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">artist</span>&gt;</span>西城男孩<span class="tag">&lt;/<span class="title">artist</span>&gt;</span>  </div><div class="line">  </div><div class="line">  <span class="tag">&lt;<span class="title">country</span>&gt;</span>USA<span class="tag">&lt;/<span class="title">country</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">company</span>&gt;</span>do not know<span class="tag">&lt;/<span class="title">company</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">price</span>&gt;</span>990<span class="tag">&lt;/<span class="title">price</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">year</span>&gt;</span>1982<span class="tag">&lt;/<span class="title">year</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;/<span class="title">cd</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">cd</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>红豆<span class="tag">&lt;/<span class="title">title</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">artist</span>&gt;</span>王菲<span class="tag">&lt;/<span class="title">artist</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">country</span>&gt;</span>中国<span class="tag">&lt;/<span class="title">country</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">company</span>&gt;</span>华宜<span class="tag">&lt;/<span class="title">company</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">price</span>&gt;</span>1020<span class="tag">&lt;/<span class="title">price</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">year</span>&gt;</span>1990<span class="tag">&lt;/<span class="title">year</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;/<span class="title">cd</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">cd</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">title</span>&gt;</span>the day you went away<span class="tag">&lt;/<span class="title">title</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">artist</span>&gt;</span>w3m<span class="tag">&lt;/<span class="title">artist</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">country</span>&gt;</span>am<span class="tag">&lt;/<span class="title">country</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">company</span>&gt;</span>Pickwick<span class="tag">&lt;/<span class="title">company</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">price</span>&gt;</span>8.50<span class="tag">&lt;/<span class="title">price</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">year</span>&gt;</span>1990<span class="tag">&lt;/<span class="title">year</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;/<span class="title">cd</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="title">catalog</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>上面是一个xml文件，定义了一些标签，并且是有层次结构。下面就是cdcatalog.xsl文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>  </div><div class="line"><span class="tag">&lt;<span class="title">xsl:stylesheet</span> <span class="attribute">version</span>=<span class="value">"1.0"</span> <span class="attribute">xmlns:xsl</span>=<span class="value">"&lt;a href="</span><span class="value">http:</span>//<span class="attribute">www.w3.org</span>/<span class="attribute">1999</span>/<span class="attribute">XSL</span>/<span class="attribute">Transform</span>"&gt;</span>http://www.w3.org/1999/XSL/Transform<span class="tag">&lt;/<span class="title">a</span>&gt;</span>"&gt;   <span class="comment">&lt;!--调用w3c标准--&gt;</span>  </div><div class="line"><span class="tag">&lt;<span class="title">xsl:output</span> <span class="attribute">method</span>=<span class="value">'html'</span> <span class="attribute">version</span>=<span class="value">'1.0'</span> <span class="attribute">encoding</span>=<span class="value">'UTF-8'</span> <span class="attribute">indent</span>=<span class="value">'yes'</span>/&gt;</span>       <span class="comment">&lt;!--定义输出为html--&gt;</span>  </div><div class="line"><span class="tag">&lt;<span class="title">xsl:template</span> <span class="attribute">match</span>=<span class="value">"/"</span>&gt;</span>      <span class="comment">&lt;!--  match="/" 定义当前的整个文档，在这里就是上面的xml文件--&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="title">html</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">body</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">h2</span>&gt;</span>我的收藏<span class="tag">&lt;/<span class="title">h2</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="title">table</span> <span class="attribute">border</span>=<span class="value">"1"</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="title">tr</span> <span class="attribute">bgcolor</span>=<span class="value">"#9acd32"</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="title">th</span> <span class="attribute">align</span>=<span class="value">"left"</span>&gt;</span>作品名<span class="tag">&lt;/<span class="title">th</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="title">th</span> <span class="attribute">align</span>=<span class="value">"left"</span>&gt;</span>作者名<span class="tag">&lt;/<span class="title">th</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="title">xsl:for-each</span> <span class="attribute">select</span>=<span class="value">"catalog/cd"</span>&gt;</span>  <span class="comment">&lt;!--取得当前文档中的catalog标签中cd子标签中的的值，for-each根php的foreach类似--&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="title">xsl:sort</span> <span class="attribute">select</span>=<span class="value">"price"</span>/&gt;</span>          <span class="comment">&lt;!--按照price，进行升序排序，price标签在cd下面  --&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="title">xsl:if</span> <span class="attribute">test</span>=<span class="value">"price &gt; 900"</span>&gt;</span>      <span class="comment">&lt;!--显示出price 大于900的数据，你可把它当做php的if--&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="title">tr</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">xsl:value-of</span> <span class="attribute">select</span>=<span class="value">"title"</span>/&gt;</span><span class="tag">&lt;/<span class="title">td</span>&gt;</span>   <span class="comment">&lt;!--提取出title的值，value-of--&gt;</span></div><div class="line">       <span class="tag">&lt;<span class="title">xsl:choose</span>&gt;</span>             <span class="comment">&lt;!--choose when 你可以把它当做switch case来理解--&gt;</span></div><div class="line">          <span class="tag">&lt;<span class="title">xsl:when</span> <span class="attribute">test</span>=<span class="value">"price &gt; 1900"</span>&gt;</span>  </div><div class="line">            <span class="tag">&lt;<span class="title">td</span> <span class="attribute">bgcolor</span>=<span class="value">"#ff00ff"</span>&gt;</span>  </div><div class="line">            <span class="tag">&lt;<span class="title">xsl:value-of</span> <span class="attribute">select</span>=<span class="value">"artist"</span>/&gt;</span><span class="tag">&lt;/<span class="title">td</span>&gt;</span>  </div><div class="line">          <span class="tag">&lt;/<span class="title">xsl:when</span>&gt;</span>  </div><div class="line">          <span class="tag">&lt;<span class="title">xsl:otherwise</span>&gt;</span>  </div><div class="line">            <span class="tag">&lt;<span class="title">td</span>&gt;</span><span class="tag">&lt;<span class="title">xsl:value-of</span> <span class="attribute">select</span>=<span class="value">"artist"</span>/&gt;</span><span class="tag">&lt;/<span class="title">td</span>&gt;</span>  </div><div class="line">          <span class="tag">&lt;/<span class="title">xsl:otherwise</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;/<span class="title">xsl:choose</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;/<span class="title">tr</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;/<span class="title">xsl:if</span>&gt;</span>  </div><div class="line">      <span class="tag">&lt;/<span class="title">xsl:for-each</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;/<span class="title">table</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">xsl:apply-templates</span>/&gt;</span>          <span class="comment">&lt;!--添加节点--&gt;</span>  </div><div class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;/<span class="title">html</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="title">xsl:template</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;<span class="title">xsl:template</span> <span class="attribute">match</span>=<span class="value">"cd"</span>&gt;</span>      <span class="comment">&lt;!-- match="cd" 定义当前文档在cd标签下--&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">p</span>&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">xsl:apply-templates</span> <span class="attribute">select</span>=<span class="value">"title"</span>/&gt;</span>  </div><div class="line">  <span class="tag">&lt;<span class="title">xsl:apply-templates</span> <span class="attribute">select</span>=<span class="value">"artist"</span>/&gt;</span>  </div><div class="line"> <span class="tag">&lt;/<span class="title">p</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="title">xsl:template</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">xsl:template</span> <span class="attribute">match</span>=<span class="value">"title"</span>&gt;</span>   <span class="comment">&lt;!--match="title" 定义当前文档在title标签下--&gt;</span></div><div class="line">  </div><div class="line"> Title: <span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"color:#ff0000"</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">xsl:value-of</span> <span class="attribute">select</span>=<span class="value">"."</span>/&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">br</span> /&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="title">xsl:template</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">xsl:template</span> <span class="attribute">match</span>=<span class="value">"artist"</span>&gt;</span>  </div><div class="line"> Artist: <span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"color:#00ff00"</span>&gt;</span>  </div><div class="line"> <span class="tag">&lt;<span class="title">xsl:value-of</span> <span class="attribute">select</span>=<span class="value">"."</span>/&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;<span class="title">br</span> /&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="title">xsl:template</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="title">xsl:stylesheet</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>页面访问一下<a href="http://localhost/test/cdcatalog.xml可以看到xml中的数据。" target="_blank" rel="external">http://localhost/test/cdcatalog.xml可以看到xml中的数据。</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/xml/">xml</a>
+  </div>
+
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2014/12/01/一个简单的xsl例子/" data-title="一个简单的xsl例子 | Larry&#39;s Hexo!" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/11/28/SysWOW64是什么/"  title="SysWOW64是什么">
+ <strong>下一篇：</strong><br/> 
+ <span>SysWOW64是什么
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#xsl是什么"><span class="toc-number">1.</span> <span class="toc-text">xsl是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xsl应用实例"><span class="toc-number">2.</span> <span class="toc-text">xsl应用实例</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/C/" title="C++">C++<sup>3</sup></a></li>
+		
+			<li><a href="/tags/DLL/" title="DLL">DLL<sup>2</sup></a></li>
+		
+			<li><a href="/tags/xml/" title="xml">xml<sup>1</sup></a></li>
+		
+			<li><a href="/tags/window/" title="window">window<sup>1</sup></a></li>
+		
+			<li><a href="/tags/String/" title="String">String<sup>1</sup></a></li>
+		
+			<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+		
+			<li><a href="/tags/vb/" title="vb">vb<sup>1</sup></a></li>
+		
+			<li><a href="/tags/-cab/" title=".cab">.cab<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            <a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a>
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2014 
+		
+		<a href="http://yoursite.com/about" target="_blank" title="Larry Li">Larry Li</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+  </body>
+</html>
