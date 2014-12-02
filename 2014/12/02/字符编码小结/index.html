@@ -4,20 +4,15 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>清空StringBuffer的几种方法 | Larry&#39;s Hexo!</title>
+    <title>字符编码小结 | Larry&#39;s Hexo!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Larry Li">
     
-    <meta name="description" content="在字符串拼接的时候经常用到StringBuffer,拼接过程中有时需要清空并重用，记录一下清空StringBuffer的几种方法
-delete方法
+    <meta name="description" content="字符编码
 
-1delete(int start, int end)
-
-
-移除此序列的子字符串中的字符
-
-1234StringBuffer my_StringBuf">
+我们已经讲过了，字符串也是一种数据类型，但是，字符串比较特殊的是还有一个编码问题。
+因为计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以，一个字节能表示的最大的整数就是255（二进制111111">
     
     
     
@@ -78,14 +73,14 @@ delete方法
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/24/清空StringBuffer的几种方法/" title="清空StringBuffer的几种方法" itemprop="url">清空StringBuffer的几种方法</a>
+      <a href="/2014/12/02/字符编码小结/" title="字符编码小结" itemprop="url">字符编码小结</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://yoursite.com/about" title="Larry Li" target="_blank" itemprop="author">Larry Li</a>
 		
   <p class="article-time">
-    <time datetime="2014-11-24T08:09:26.000Z" itemprop="datePublished"> Published Nov 24 2014</time>
+    <time datetime="2014-12-02T06:24:25.000Z" itemprop="datePublished"> Published Dec 2 2014</time>
     
   </p>
 </header>
@@ -95,41 +90,61 @@ delete方法
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete方法"><span class="toc-number">1.</span> <span class="toc-text">delete方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setLength方法"><span class="toc-number">2.</span> <span class="toc-text">setLength方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#new方法"><span class="toc-number">3.</span> <span class="toc-text">new方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#几种方法效率比较"><span class="toc-number">4.</span> <span class="toc-text">几种方法效率比较</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符编码"><span class="toc-number">1.</span> <span class="toc-text">字符编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unicode"><span class="toc-number">2.</span> <span class="toc-text">Unicode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UTF-8编码"><span class="toc-number">3.</span> <span class="toc-text">UTF-8编码</span></a></li></ol>
 		
 		</div>
 		
-		<p>在字符串拼接的时候经常用到<strong>StringBuffer</strong>,拼接过程中有时需要清空并重用，记录一下清空<strong>StringBuffer</strong>的几种方法</p>
-<h2 id="delete方法"><code>delete</code>方法</h2>
+		<h2 id="字符编码">字符编码</h2>
 <hr>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="operator"><span class="keyword">delete</span>(<span class="built_in">int</span> <span class="keyword">start</span>, <span class="built_in">int</span> <span class="keyword">end</span>)</span></div></pre></td></tr></table></figure>
-
-<blockquote>
-<p>移除此序列的子字符串中的字符</p>
-</blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">StringBuffer my_StringBuffer = <span class="keyword">new</span> StringBuffer();</div><div class="line">my_StringBuffer.<span class="keyword">append</span>(<span class="string">'helloworld'</span>);    <span class="comment">//添加字符串到StringBuffer中</span></div><div class="line"><span class="keyword">int</span>  sb_length = my_StringBuffer.length();<span class="comment">// 取得字符串的长度</span></div><div class="line">my_StringBuffer.<span class="keyword">delete</span>(<span class="number">0</span>,sb_length);    <span class="comment">//删除字符串从0~sb_length-1处的内容 (这个方法就是用来清除StringBuffer中的内容的)</span></div></pre></td></tr></table></figure>
-
-<h2 id="setLength方法"><code>setLength</code>方法</h2>
+<p>我们已经讲过了，字符串也是一种数据类型，但是，字符串比较特殊的是还有一个编码问题。</p>
+<p>因为计算机只能处理数字，如果要处理文本，就必须先把文本转换为数字才能处理。最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以，一个字节能表示的最大的整数就是255（二进制11111111=十进制255），如果要表示更大的整数，就必须用更多的字节。比如两个字节可以表示的最大整数是<code>65535</code>，4个字节可以表示的最大整数是<code>4294967295</code>。</p>
+<p>由于计算机是美国人发明的，因此，最早只有127个字母被编码到计算机里，也就是大小写英文字母、数字和一些符号，这个编码表被称为<code>ASCII</code>编码，比如大写字母<code>A</code>的编码是<code>65</code>，小写字母<code>z</code>的编码是<code>122</code>。</p>
+<p>但是要处理中文显然一个字节是不够的，至少需要两个字节，而且还不能和ASCII编码冲突，所以，中国制定了<code>GB2312</code>编码，用来把中文编进去。</p>
+<p>你可以想得到的是，全世界有上百种语言，日本把日文编到<code>Shift_JIS</code>里，韩国把韩文编到<code>Euc-kr</code>里，各国有各国的标准，就会不可避免地出现冲突，结果就是，在多语言混合的文本中，显示出来会有乱码。</p>
+<h2 id="Unicode">Unicode</h2>
 <hr>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">set</span>Length(int newLength)</div></pre></td></tr></table></figure>
-
+<p>因此，Unicode应运而生。Unicode把所有语言都统一到一套编码里，这样就不会再有乱码问题了。</p>
+<p>Unicode标准也在不断发展，但最常用的是用两个字节表示一个字符（如果要用到非常偏僻的字符，就需要4个字节）。现代操作系统和大多数编程语言都直接支持Unicode。</p>
+<p>现在，捋一捋ASCII编码和Unicode编码的区别：ASCII编码是1个字节，而Unicode编码通常是2个字节。</p>
+<p>字母A用ASCII编码是十进制的65，二进制的01000001；</p>
+<p>字符0用ASCII编码是十进制的48，二进制的00110000，注意字符’0’和整数0是不同的；</p>
+<p>汉字中已经超出了ASCII编码的范围，用Unicode编码是十进制的20013，二进制的01001110 00101101。</p>
+<p>你可以猜测，如果把ASCII编码的A用Unicode编码，只需要在前面补0就可以，因此，A的Unicode编码是00000000 01000001。</p>
+<p>新的问题又出现了：如果统一成Unicode编码，乱码问题从此消失了。但是，如果你写的文本基本上全部是英文的话，用Unicode编码比ASCII编码需要多一倍的存储空间，在存储和传输上就十分不划算。</p>
+<p>所以，本着节约的精神，又出现了把Unicode编码转化为“可变长编码”的<code>UTF-8</code>编码。UTF-8编码把一个Unicode字符根据不同的数字大小编码成1-6个字节，常用的英文字母被编码成1个字节，汉字通常是3个字节，只有很生僻的字符才会被编码成4-6个字节。如果你要传输的文本包含大量英文字符，用UTF-8编码就能节省空间：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">ASCII</th>
+<th style="text-align:center">Unicode</th>
+<th style="text-align:center">UTF-8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">    A</td>
+<td style="text-align:center">01000001</td>
+<td style="text-align:center">00000000 01000001</td>
+<td style="text-align:center">01000001</td>
+</tr>
+<tr>
+<td style="text-align:center">   中</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">01001110 00101101</td>
+<td style="text-align:center">11100100 10111000 10101101</td>
+</tr>
+</tbody>
+</table>
+<h2 id="UTF-8编码">UTF-8编码</h2>
+<hr>
+<p>从上面的表格还可以发现，UTF-8编码有一个额外的好处，就是ASCII编码实际上可以被看成是UTF-8编码的一部分，所以，大量只支持ASCII编码的历史遗留软件可以在UTF-8编码下继续工作。</p>
+<p>搞清楚了ASCII、Unicode和UTF-8的关系，我们就可以总结一下现在计算机系统通用的字符编码工作方式：</p>
+<p>在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转换为UTF-8编码。</p>
+<p>用记事本编辑的时候，从文件读取的UTF-8字符被转换为Unicode字符到内存里，编辑完成后，保存的时候再把Unicode转换为UTF-8保存到文件：<br><img src="http://larryimage.qiniudn.com/%E8%AE%B0%E4%BA%8B%E6%9C%ACUnicode.png" alt="记事本Unicode"><br>浏览网页的时候，服务器会把动态生成的Unicode内容转换为UTF-8再传输到浏览器：<br><img src="http://larryimage.qiniudn.com/%E6%9C%8D%E5%8A%A1%E5%99%A8Unicode.png" alt="服务器Unicode"><br>所以你看到很多网页的源码上会有类似<code>&lt;meta charset=&quot;UTF-8&quot; /&gt;</code>的信息，表示该网页正是用的UTF-8编码。</p>
 <blockquote>
-<p>设置字符序列的长度。</p>
+<p>转自<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386819196283586a37629844456ca7e5a7faa9b94ee8000" target="_blank" rel="external">廖学峰老师网站</a></p>
 </blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">my_StringBuffer.setLength(<span class="number">0</span>);   <span class="comment">//设置StringBuffer变量的长度为0</span></div></pre></td></tr></table></figure>
-
-<h2 id="new方法"><code>new</code>方法</h2>
-<p>直接用<code>new</code>清空<strong>StringBuffer</strong>中的内容</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">my_StringBuffer </span>=<span class="string"> new StringBuffer()</span></div></pre></td></tr></table></figure>
-
-<h2 id="几种方法效率比较">几种方法效率比较</h2>
-<p>测试程序：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testStringBufferclear</span>() {</div><div class="line">     StringBuffer sbf = <span class="keyword">new</span>  StringBuffer(<span class="string">"wwwwww"</span>);</div><div class="line">     StringBuffer sbi = <span class="keyword">new</span>  StringBuffer(<span class="string">"wwwwww"</span>);</div><div class="line">     <span class="keyword">long</span> s1 = System.currentTimeMillis();</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">500000</span>; i++) {</div><div class="line">      sbi.setLength(<span class="number">0</span>);</div><div class="line">     }</div><div class="line">     <span class="keyword">long</span> s11 = System.currentTimeMillis();</div><div class="line">     System.<span class="keyword">out</span>.println(<span class="string">"StringBuffer-setLength:"</span> + (s11 - s1));</div><div class="line">     s1 = System.currentTimeMillis();</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">500000</span>; i++) {</div><div class="line">      sbf.delete(<span class="number">0</span>, sbf.length());</div><div class="line">     }</div><div class="line">     s11 = System.currentTimeMillis();</div><div class="line">     System.<span class="keyword">out</span>.println(<span class="string">"StringBuffer--delete:"</span> + (s11 - s1));</div><div class="line">     s1 = System.currentTimeMillis();</div><div class="line">     <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">500000</span>; i++) {</div><div class="line">      sbf = <span class="keyword">new</span> StringBuffer(<span class="string">""</span>);</div><div class="line">     }</div><div class="line">     s11 = System.currentTimeMillis();</div><div class="line">     System.<span class="keyword">out</span>.println(<span class="string">"StringBuffer--new StringBuffer:"</span> + (s11 - s1));</div><div class="line">    }</div></pre></td></tr></table></figure>
-
-<p>测试结果：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">StringBuffer-setLength</span><span class="pseudo">:63</span></div><div class="line"><span class="tag">StringBuffer--delete</span><span class="pseudo">:109</span></div><div class="line"><span class="tag">StringBuffer--new</span> <span class="tag">StringBuffer</span><span class="pseudo">:78</span></div></pre></td></tr></table></figure>
-
-<p>测试结论：<br>要通过使用<code>setLength(0)</code>来清空<strong>StringBuffer</strong>对象中的内容效率最高。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -138,7 +153,7 @@ delete方法
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/java/">java</a><a href="/tags/String/">String</a>
+  <span></span> <a href="/tags/字符编码/">字符编码</a>
   </div>
 
 </div>
@@ -146,7 +161,7 @@ delete方法
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2014/11/24/清空StringBuffer的几种方法/" data-title="清空StringBuffer的几种方法 | Larry&#39;s Hexo!" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2014/12/02/字符编码小结/" data-title="字符编码小结 | Larry&#39;s Hexo!" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -155,19 +170,11 @@ delete方法
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/11/28/SysWOW64是什么/" title="SysWOW64是什么">
-  <strong>上一篇：</strong><br/>
-  <span>
-  SysWOW64是什么</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/11/20/C++中域运算符/"  title="C++中域运算符::">
+<a href="/2014/12/01/一个简单的xsl例子/"  title="一个简单的xsl例子">
  <strong>下一篇：</strong><br/> 
- <span>C++中域运算符::
+ <span>一个简单的xsl例子
 </span>
 </a>
 </div>
@@ -182,7 +189,7 @@ delete方法
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#delete方法"><span class="toc-number">1.</span> <span class="toc-text">delete方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setLength方法"><span class="toc-number">2.</span> <span class="toc-text">setLength方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#new方法"><span class="toc-number">3.</span> <span class="toc-text">new方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#几种方法效率比较"><span class="toc-number">4.</span> <span class="toc-text">几种方法效率比较</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符编码"><span class="toc-number">1.</span> <span class="toc-text">字符编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unicode"><span class="toc-number">2.</span> <span class="toc-text">Unicode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UTF-8编码"><span class="toc-number">3.</span> <span class="toc-text">UTF-8编码</span></a></li></ol>
  
   </div>
 
