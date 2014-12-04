@@ -1,0 +1,488 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>排序算法伪代码及演示 | Larry&#39;s Hexo!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Larry Li">
+    
+    <meta name="description" content="排序算法是算法的入门，但是一个都没有很系统的去掌握，在这里总结一些方便自己学习。
+插入排序(Insertion sort)
+
+插入排序就是每一步都将一个待排序的数据按其大小插入到已经排序的数据中的适当位置，直到全部插入完毕。
+
+伪代码：对于插入排序，我们将其伪代码过程命名为INSERTION-SOR">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Larry&#39;s Hexo!" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Larry&#39;s Hexo!" title="Larry&#39;s Hexo!"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Larry&#39;s Hexo!">Larry&#39;s Hexo!</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/03/排序算法伪代码及演示/" title="排序算法伪代码及演示" itemprop="url">排序算法伪代码及演示</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yoursite.com/about" title="Larry Li" target="_blank" itemprop="author">Larry Li</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-03T11:05:56.000Z" itemprop="datePublished"> Published Dec 3 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序(Insertion_sort)"><span class="toc-number">1.</span> <span class="toc-text">插入排序(Insertion sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序(Merge_Sort)"><span class="toc-number">2.</span> <span class="toc-text">归并排序(Merge Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序(Bubble_sort)"><span class="toc-number">3.</span> <span class="toc-text">冒泡排序(Bubble sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序(Quick_sort)"><span class="toc-number">4.</span> <span class="toc-text">快速排序(Quick sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序(Selection_sort)"><span class="toc-number">5.</span> <span class="toc-text">选择排序(Selection sort)</span></a></li></ol>
+		
+		</div>
+		
+		<p>排序算法是算法的入门，但是一个都没有很系统的去掌握，在这里总结一些方便自己学习。</p>
+<h2 id="插入排序(Insertion_sort)">插入排序(Insertion sort)</h2>
+<hr>
+<p>插入排序就是每一步都将一个待排序的数据按其大小插入到已经排序的数据中的适当位置，直到全部插入完毕。</p>
+<blockquote>
+<p><strong>伪代码</strong>：<br>对于插入排序，我们将其伪代码过程命名为INSERTION-SORT，其中参数是一个数组A[1..N]，包含长度为n的要排序的一个序列，在代码中，A的元素的数目n用<code>A.length</code>表示(下同).</p>
+</blockquote>
+<p><img src="http://larryimage.qiniudn.com/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F.png" alt=""></p>
+<blockquote>
+<p><strong>示例 1：</strong><br>A<5，2，4，6，1，3></5，2，4，6，1，3></p>
+</blockquote>
+<p><img src="http://larryimage.qiniudn.com/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%A4%BA%E4%BE%8B.png" alt=""><br>下标j指出正要被插入的数据，在for循环（循环变量为j)的每次迭代的开始，包含数组元素A[1..j-1]的子数组构成了当前排序好的数据，剩余的子数组[j+1…n]对应于未排序的数据。事实上，元素A[1..j-1]就是原来在位置1到j-1上的数组，但现在已按序排列。</p>
+<p>该算法的运行时间是执行每条语句的运行时间之和。在排序算法中，若输入数组已反向排序，即按递减序排序好，则导致最坏情况。需要进行INSERTION-SORT的运行时间为T(n)=O(n²)</p>
+<blockquote>
+<p><strong>示例 2：</strong></p>
+</blockquote>
+<p><img src="http://larryimage.qiniudn.com/insertion%20sort.gif" alt=""></p>
+<h2 id="归并排序(Merge_Sort)">归并排序(Merge Sort)</h2>
+<hr>
+<p>归并排序算法完全遵循前一章中提到的分治模式，直观上其操作如下：</p>
+<ul>
+<li>分解：分解待排序的n个元素的序列成各具n/2个元素的两个子序列</li>
+<li>解决：使用归并排序递归的排序两个子序列</li>
+<li>合并：合并两个已排序的子序列以产生已排序的答案。<br>当待排序的长度为1时，递归“开始回升”，在这种情况下不要做任何工作，因为长度为1的每个序列都已排好序。</li>
+</ul>
+<blockquote>
+<p><strong>伪代码</strong>：<br>归并排序算法的关键操作是“<strong>合并</strong>”步骤中两个已排序序列的合并。我们通过MERGE(A，p，q，r)来完成合并，其中<code>A</code>是一个<strong>数组</strong>，<code>p</code>，<code>q</code>，<code>r</code>是<strong>数组下标</strong>，满足<code>p&lt;=q&lt;r</code>。<strong>MERGE</strong>过程将两个已经排好序的子数组归并为一个。每次比较两个子数组中最小的数据(由于子数组已排序，所以该操作仅需Θ(1)时间），将较小的数据放入合并数组中，当两个数组中的元素全部取完时，即将两个子数组合并完毕。过程MERGE需要Θ(n)的时间，其中<code>n=r-p+1</code>是待合并元素的总数。</p>
+</blockquote>
+<p>在伪代码中，为每个数组中添加了一个<strong>哨兵</strong>，它包含一个特殊的值，用于简化代码，这里使用<code>∞</code>作为<strong>哨兵值</strong>。<br><img src="http://larryimage.qiniudn.com/algo2-3.png" alt=""><br>下面我们将过程<strong>MERGE</strong>作为归并排序算法中的一个<strong>子程序</strong>来使用。下面过程<code>MERGE-SORT(A，p，r)</code>排序子数组<code>A[p...r]</code>中的元素。若<code>p&gt;=r</code>，则该子数组最多有一个元素，所以已经排序好了。否则，分解步骤简单地计算下一个下标<code>q</code>，将<code>A[p..r]</code>分成两个子数组<code>A[p..q]</code>和<code>A[q+1..r]</code>，前者包含<code>⌈n/2⌉</code>个元素，后则包含<code>⌊n/2⌋</code>个元素。<br><img src="http://larryimage.qiniudn.com/algo2-4.png" alt=""><br>为了排序整个序列A=<code>&lt;A₁，A₂，...An&gt;</code>，我们执行初始调用<code>MERGE-SORT(A，1，A.length)</code>，这里<code>A.length</code>等于n。</p>
+<blockquote>
+<p><strong>示例 1：</strong><br>A=<5，2，4，7，1，3，2，6></5，2，4，7，1，3，2，6></p>
+</blockquote>
+<p><img src="http://larryimage.qiniudn.com/algo2-5.png" alt=""></p>
+<p>归并排序将规模为n的问题分解为两个规模为<code>n/2</code>的子问题，在合并操作中需要<code>Θ(n)</code>的时间，不难分析出递归排序的最坏情况运行时间<code>T(n)=2T(n/2)+Θ(n)</code>。应用主定理，可知，T(n)为<code>Θ(nlgn)</code>.</p>
+<blockquote>
+<p><strong>示例 2：</strong></p>
+</blockquote>
+<p><img src="http://larryimage.qiniudn.com/merge%20sort.gif" alt=""></p>
+<h2 id="冒泡排序(Bubble_sort)">冒泡排序(Bubble sort)</h2>
+<p>冒泡排序反复交换相邻的未按次序排列的元素，这样一趟过去以后，最小的数字被交换到了第一位，然后再从头开始进行两两交换比较，直到第二位时结束.<br>伪代码：<br><img src="http://larryimage.qiniudn.com/algo2-6.png" alt=""><br>示例：<br><img src="http://larryimage.qiniudn.com/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F.gif" alt=""><br>针对冒泡排序还有两种优化：</p>
+<ol>
+<li>优化一：如果某一轮两两比较中没有任何元素交换，这说明已经都排好序了，算法结束，可以使用一个<strong>Flag</strong>做标记，默认为<code>false</code>，如果发生交互则置为<code>true</code>，每轮结束时检测<strong>Flag</strong>，如果为<code>true</code>则继续，如果为<code>false</code>则返回。</li>
+<li><p>优化二：某一轮结束位置为<code>j</code>，但是这一轮的最后一次交换发生在<code>lastSwap</code>的位置，则<code>lastSwap</code>到j之间是排好序的，下一轮的结束点就不必是<code>j--</code>了，而直接到<code>lastSwap</code>即可。</p>
+<h2 id="快速排序(Quick_sort)">快速排序(Quick sort)</h2>
+<p>与归并排序一样，快速排序也使用<strong>分治思想</strong>下面对一个典型的子数组<code>A[p..r]</code>进行快速排序的三步分治过程：</p>
+</li>
+</ol>
+<ul>
+<li>分解:数组<code>A[p..r]</code>被划分为两个(可能为空)子数组<code>A[p..q-1]</code>和<code>A[q+1..r]</code>，使得<code>A[p..q-1]</code>中的每个元素都<strong>小于等于</strong><code>A[q]</code>，而<code>A[q]</code>也<strong>小于等于</strong><code>A[q+1..r]</code>中的每个元素。其中，下表q也是划分过程的一部分。</li>
+<li>通过<strong>递归调用快速排序</strong>，对子数组<code>A[p..q-1]</code>和<code>A[q+1..r]</code>进行排序</li>
+<li><p>因为子数组都是原址排序的，所以不需要合并操作：数组A[p..r]已经有序</p>
+<blockquote>
+<p>伪代码:</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="http://larryimage.qiniudn.com/algo2-14.png" alt=""></p>
+<p>为了排序一个数组A的全部元素，初始调用<code>QUICKSORT(A，1，A.length)</code>算法的关键部分是<strong>PARTITION</strong>过程，它实现了对子数组<code>A[p..r]</code>的<strong>原址重排</strong>。<br><img src="http://larryimage.qiniudn.com/algo2-15.png" alt=""><br>下图显示了PARTITION如何在一个包含8个元素的数组上进行操作的过程。<br><img src="http://larryimage.qiniudn.com/algo2-16.png" alt=""><br>PARTITION总是选择一个<code>x=A[r]</code>作为主元，并围绕它来划分子数组<code>A[p..r]</code>。随着程序的执行，数组被划分为4个区域，如图所示:<br><img src="http://larryimage.qiniudn.com/algo2-17.png" alt=""><br>在子数组<code>A[p..r]</code>上，PARTITION维护了4个区域。<code>A[p..i]</code>区间内所有值<strong>小于等于</strong><code>x</code>，<code>A[i+1..j-1]</code>区间内所有的值都<strong>大于</strong><code>x</code>，<code>A[r]=x</code>。子数组<code>A[j..r-1]</code>中的值可能属于任何一种情况。</p>
+<p>PARTITION在子数组<code>A[p..r]</code>上的时间复杂度是Θ(n)，其中n=r-p+1</p>
+<blockquote>
+<p><strong>示例：</strong></p>
+</blockquote>
+<p><img src="http://larryimage.qiniudn.com/Quicksort-example.gif" alt=""></p>
+<h2 id="选择排序(Selection_sort)">选择排序(Selection sort)</h2>
+<p> 遍历数组，遍历到i时，a0,a1…ai-1是已经排好序的，然后从i到n选择出最小的，记录下位置，如果不是第i个，则和第i个元素交换。此时第i个元素可能会排到相等元素之后，造成排序的不稳定。<br> 具体步骤如下：</p>
+<ol>
+<li>在未排序序列中找到最小（大）元素，存放到排序序列的起始位置。</li>
+<li>再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。</li>
+<li>以此类推，直到所有元素均排序完毕。<br>示例：<br><img src="http://larryimage.qiniudn.com/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F.gif" alt=""></li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/算法/">算法</a><a href="/tags/排序/">排序</a>
+  </div>
+
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2014/12/03/排序算法伪代码及演示/" data-title="排序算法伪代码及演示 | Larry&#39;s Hexo!" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/12/04/排序算法一句话总结/" title="排序算法一句话总结">
+  <strong>上一篇：</strong><br/>
+  <span>
+  排序算法一句话总结</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/12/02/字符编码小结/"  title="字符编码小结">
+ <strong>下一篇：</strong><br/> 
+ <span>字符编码小结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序(Insertion_sort)"><span class="toc-number">1.</span> <span class="toc-text">插入排序(Insertion sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序(Merge_Sort)"><span class="toc-number">2.</span> <span class="toc-text">归并排序(Merge Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序(Bubble_sort)"><span class="toc-number">3.</span> <span class="toc-text">冒泡排序(Bubble sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序(Quick_sort)"><span class="toc-number">4.</span> <span class="toc-text">快速排序(Quick sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序(Selection_sort)"><span class="toc-number">5.</span> <span class="toc-text">选择排序(Selection sort)</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/C/" title="C++">C++<sup>3</sup></a></li>
+		
+			<li><a href="/tags/DLL/" title="DLL">DLL<sup>2</sup></a></li>
+		
+			<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+		
+			<li><a href="/tags/排序/" title="排序">排序<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+		
+			<li><a href="/tags/-cab/" title=".cab">.cab<sup>1</sup></a></li>
+		
+			<li><a href="/tags/字符编码/" title="字符编码">字符编码<sup>1</sup></a></li>
+		
+			<li><a href="/tags/数据结构/" title="数据结构">数据结构<sup>1</sup></a></li>
+		
+			<li><a href="/tags/window/" title="window">window<sup>1</sup></a></li>
+		
+			<li><a href="/tags/String/" title="String">String<sup>1</sup></a></li>
+		
+			<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+		
+			<li><a href="/tags/vb/" title="vb">vb<sup>1</sup></a></li>
+		
+			<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+		
+			<li><a href="/tags/xml/" title="xml">xml<sup>1</sup></a></li>
+		
+			<li><a href="/tags/数据结构，二叉树，Java/" title="数据结构，二叉树，Java">数据结构，二叉树，Java<sup>0</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            <a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a>
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2014 
+		
+		<a href="http://yoursite.com/about" target="_blank" title="Larry Li">Larry Li</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+  </body>
+</html>

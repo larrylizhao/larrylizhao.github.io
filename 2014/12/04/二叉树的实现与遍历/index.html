@@ -1,0 +1,438 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>二叉树的实现与遍历 | Larry&#39;s Hexo!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Larry Li">
+    
+    <meta name="description" content="二叉树是树形结构的一个重要类型。许多实际问题抽象出来的数据结构往往是二叉树的形式，即使是一般的树也能简单地转换为二叉树，而且二叉树的存储结构及其算法都较为简单，因此二叉树显得特别重要。
+二叉树的定义
+
+
+二叉树(BinaryTree)是n(n≥0)个结点的有限集，它或者是空集(n=0)，或者由一个根">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Larry&#39;s Hexo!" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Larry&#39;s Hexo!" title="Larry&#39;s Hexo!"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Larry&#39;s Hexo!">Larry&#39;s Hexo!</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/12/04/二叉树的实现与遍历/" title="二叉树的实现与遍历" itemprop="url">二叉树的实现与遍历</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://yoursite.com/about" title="Larry Li" target="_blank" itemprop="author">Larry Li</a>
+		
+  <p class="article-time">
+    <time datetime="2014-12-04T07:01:34.000Z" itemprop="datePublished"> Published Dec 4 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树的定义"><span class="toc-number">1.</span> <span class="toc-text">二叉树的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树的遍历"><span class="toc-number">2.</span> <span class="toc-text">二叉树的遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树的实现"><span class="toc-number">3.</span> <span class="toc-text">二叉树的实现</span></a></li></ol>
+		
+		</div>
+		
+		<p>二叉树是树形结构的一个重要类型。许多实际问题抽象出来的数据结构往往是二叉树的形式，即使是一般的树也能简单地转换为二叉树，而且二叉树的存储结构及其算法都较为简单，因此二叉树显得特别重要。</p>
+<h2 id="二叉树的定义">二叉树的定义</h2>
+<hr>
+<blockquote>
+<p>二叉树(BinaryTree)是n(n≥0)个结点的有限集，它或者是空集(n=0)，或者由一个根结点及两棵互不相交的、分别称作这个根的左子树和右子树的二叉树组成。<br>这个定义是递归的。由于左、右子树也是二叉树，因此子树也可为空树。下图中展现了五种不同基本形态的二叉树。</p>
+</blockquote>
+<p><img src="http://larryimage.qiniudn.com/%E4%BA%8C%E5%8F%89%E6%A0%91.jpg" alt=""></p>
+<p>  其中 (a) 为空树， (b) 为仅有一个结点的二叉树， (c) 是仅有左子树而右子树为空的二叉树， (d) 是仅有右子树而左子树为空的二叉树， (e) 是左、右子树均非空的二叉树。这里应特别注意的是，二叉树的左子树和右子树是严格区分并且不能随意颠倒的，图 (c) 与图 (d) 就是两棵不同的二叉树。</p>
+<h2 id="二叉树的遍历">二叉树的遍历</h2>
+<hr>
+<p>对于二叉树来讲最主要、最基本的运算是遍历。</p>
+<p>遍历二叉树 是指以一定的次序访问二叉树中的每个结点。所谓访问结点是指对结点进行各种操作的简称。例如，查询结点数据域的内容，或输出它的值，或找出结点位置，或是执行对结点的其他操作。遍历二叉树的过程实质是把二叉树的结点进行线性排列的过程。假设遍历二叉树时访问结点的操作就是输出结点数据域的值，那么遍历的结果得到一个线性序列。</p>
+<p>从二叉树的递归定义可知，一棵非空的二叉树由根结点及左、右子树这三个基本部分组成。因此，在任一给定结点上，可以按某种次序执行三个操作：</p>
+<ol>
+<li>访问结点本身(N)，</li>
+<li>遍历该结点的左子树(L)，</li>
+<li>遍历该结点的右子树(R)。<br>以上三种操作有六种执行次序：<br>  　NLR、LNR、LRN、NRL、RNL、RLN。<blockquote>
+<p>注意：<br>前三种次序与后三种次序对称，故只讨论先左后右的前三种次序。</p>
+</blockquote>
+</li>
+</ol>
+<p>由于被访问的结点必是某子树的根，所以N(Node)、L(Left subtlee)和R(Right subtree)又可解释为根、根的左子树和根的右子树。NLR、LNR和LRN分别又称为先根遍历、中根遍历和后根遍历。</p>
+<h2 id="二叉树的实现">二叉树的实现</h2>
+<hr>
+<p>首先创建一棵二叉树如下图，然后对这颗二叉树进行遍历操作（遍历操作的实现分为递归实现和非递归实现），同时还提供一些方法如获取双亲结点、获取左孩子、右孩子等。</p>
+<p><img src="http://larryimage.qiniudn.com/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%AE%9E%E7%8E%B0.jpg" alt=""></p>
+<p>Java代码实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div></pre></td><td class="code"><pre><div class="line">import java.util.Stack;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 二叉树的链式存储</div><div class="line"> * @author WWX</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> BinaryTree {</div><div class="line"></div><div class="line">	</div><div class="line">	<span class="keyword">private</span> TreeNode root=<span class="keyword">null</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="title">BinaryTree</span>(){</div><div class="line">		root=<span class="keyword">new</span> TreeNode(<span class="number">1</span>,<span class="string">"rootNode(A)"</span>);</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 创建一棵二叉树</div><div class="line">	 * &lt;pre&gt;</div><div class="line">	 *           A</div><div class="line">	 *     B          C</div><div class="line">	 *  D     E            F</div><div class="line">	 *  &lt;/pre&gt;</div><div class="line">	 * @param root</div><div class="line">	 * @author WWX</div><div class="line">	 */</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createBinTree</span>(TreeNode root){</div><div class="line">		TreeNode newNodeB = <span class="keyword">new</span> TreeNode(<span class="number">2</span>,<span class="string">"B"</span>);</div><div class="line">        TreeNode newNodeC = <span class="keyword">new</span> TreeNode(<span class="number">3</span>,<span class="string">"C"</span>);</div><div class="line">        TreeNode newNodeD = <span class="keyword">new</span> TreeNode(<span class="number">4</span>,<span class="string">"D"</span>);</div><div class="line">        TreeNode newNodeE = <span class="keyword">new</span> TreeNode(<span class="number">5</span>,<span class="string">"E"</span>);</div><div class="line">        TreeNode newNodeF = <span class="keyword">new</span> TreeNode(<span class="number">6</span>,<span class="string">"F"</span>);</div><div class="line">        root.leftChild=newNodeB;</div><div class="line">        root.rightChild=newNodeC;</div><div class="line">        root.leftChild.leftChild=newNodeD;</div><div class="line">        root.leftChild.rightChild=newNodeE;</div><div class="line">        root.rightChild.rightChild=newNodeF;</div><div class="line">	}</div><div class="line">	</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> boolean <span class="title">isEmpty</span>(){</div><div class="line">		<span class="keyword">return</span> root==<span class="keyword">null</span>;</div><div class="line">	}</div><div class="line"></div><div class="line">	<span class="comment">//树的高度</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="title">height</span>(){</div><div class="line">		<span class="keyword">return</span> height(root);</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="comment">//节点个数</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span>(){</div><div class="line">		<span class="keyword">return</span> size(root);</div><div class="line">	}</div><div class="line">	</div><div class="line">	</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> <span class="title">height</span>(TreeNode subTree){</div><div class="line">		<span class="keyword">if</span>(subTree==<span class="keyword">null</span>)</div><div class="line">			<span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//递归结束：空树高度为0</span></div><div class="line">		<span class="keyword">else</span>{</div><div class="line">			<span class="keyword">int</span> i=height(subTree.leftChild);</div><div class="line">			<span class="keyword">int</span> j=height(subTree.rightChild);</div><div class="line">			<span class="keyword">return</span> (i&lt;j)?(j+<span class="number">1</span>):(i+<span class="number">1</span>);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> <span class="title">size</span>(TreeNode subTree){</div><div class="line">		<span class="keyword">if</span>(subTree==<span class="keyword">null</span>){</div><div class="line">			<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">		}<span class="keyword">else</span>{</div><div class="line">			<span class="keyword">return</span> <span class="number">1</span>+size(subTree.leftChild)</div><div class="line">					+size(subTree.rightChild);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="comment">//返回双亲结点</span></div><div class="line">	<span class="keyword">public</span> TreeNode <span class="title">parent</span>(TreeNode element){</div><div class="line">		<span class="keyword">return</span> (root==<span class="keyword">null</span>|| root==element)?<span class="keyword">null</span>:parent(root, element);</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> TreeNode <span class="title">parent</span>(TreeNode subTree,TreeNode element){</div><div class="line">		<span class="keyword">if</span>(subTree==<span class="keyword">null</span>)</div><div class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">		<span class="keyword">if</span>(subTree.leftChild==element||subTree.rightChild==element)</div><div class="line">			<span class="comment">//返回父结点地址</span></div><div class="line">			<span class="keyword">return</span> subTree;</div><div class="line">		TreeNode p;</div><div class="line">		<span class="comment">//现在左子树中找，如果左子树中没有找到，才到右子树去找</span></div><div class="line">		<span class="keyword">if</span>((p=parent(subTree.leftChild, element))!=<span class="keyword">null</span>)</div><div class="line">			<span class="comment">//递归在左子树中搜索</span></div><div class="line">			<span class="keyword">return</span> p;</div><div class="line">		<span class="keyword">else</span></div><div class="line">			<span class="comment">//递归在右子树中搜索</span></div><div class="line">			<span class="keyword">return</span> parent(subTree.rightChild, element);</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> TreeNode <span class="title">getLeftChildNode</span>(TreeNode element){</div><div class="line">		<span class="keyword">return</span> (element!=<span class="keyword">null</span>)?element.leftChild:<span class="keyword">null</span>;</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> TreeNode <span class="title">getRightChildNode</span>(TreeNode element){</div><div class="line">		<span class="keyword">return</span> (element!=<span class="keyword">null</span>)?element.rightChild:<span class="keyword">null</span>;</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> TreeNode <span class="title">getRoot</span>(){</div><div class="line">		<span class="keyword">return</span> root;</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="comment">//在释放某个结点时，该结点的左右子树都已经释放，</span></div><div class="line">	<span class="comment">//所以应该采用后续遍历，当访问某个结点时将该结点的存储空间释放</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span>(TreeNode subTree){</div><div class="line">		<span class="comment">//删除根为subTree的子树</span></div><div class="line">		<span class="keyword">if</span>(subTree!=<span class="keyword">null</span>){</div><div class="line">			<span class="comment">//删除左子树</span></div><div class="line">			destroy(subTree.leftChild);</div><div class="line">			<span class="comment">//删除右子树</span></div><div class="line">			destroy(subTree.rightChild);</div><div class="line">			<span class="comment">//删除根结点</span></div><div class="line">			subTree=<span class="keyword">null</span>;</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">traverse</span>(TreeNode subTree){</div><div class="line">		System.<span class="keyword">out</span>.println(<span class="string">"key:"</span>+subTree.key+<span class="string">"--name:"</span>+subTree.data);;</div><div class="line">		traverse(subTree.leftChild);</div><div class="line">		traverse(subTree.rightChild);</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="comment">//前序遍历</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preOrder</span>(TreeNode subTree){</div><div class="line">		<span class="keyword">if</span>(subTree!=<span class="keyword">null</span>){</div><div class="line">			visted(subTree);</div><div class="line">			preOrder(subTree.leftChild);</div><div class="line">			preOrder(subTree.rightChild);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="comment">//中序遍历</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inOrder</span>(TreeNode subTree){</div><div class="line">		<span class="keyword">if</span>(subTree!=<span class="keyword">null</span>){</div><div class="line">			inOrder(subTree.leftChild);</div><div class="line">			visted(subTree);</div><div class="line">			inOrder(subTree.rightChild);</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="comment">//后续遍历</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postOrder</span>(TreeNode subTree) {</div><div class="line">		<span class="keyword">if</span> (subTree != <span class="keyword">null</span>) {</div><div class="line">			postOrder(subTree.leftChild);</div><div class="line">            postOrder(subTree.rightChild);</div><div class="line">            visted(subTree);</div><div class="line">        }</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="comment">//前序遍历的非递归实现</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">nonRecPreOrder</span>(TreeNode p){</div><div class="line">		Stack&lt;TreeNode&gt; stack=<span class="keyword">new</span> Stack&lt;TreeNode&gt;();</div><div class="line">		TreeNode node=p;</div><div class="line">		<span class="keyword">while</span>(node!=<span class="keyword">null</span>||stack.size()&gt;<span class="number">0</span>){</div><div class="line">			<span class="keyword">while</span>(node!=<span class="keyword">null</span>){</div><div class="line">				visted(node);</div><div class="line">				stack.push(node);</div><div class="line">				node=node.leftChild;</div><div class="line">			}</div><div class="line">			(stack.size()&gt;<span class="number">0</span>){</div><div class="line">				node=stack.pop();</div><div class="line">				node=node.rightChild;</div><div class="line">			} </div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="comment">//中序遍历的非递归实现</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">nonRecInOrder</span>(TreeNode p){</div><div class="line">		Stack&lt;TreeNode&gt; stack =<span class="keyword">new</span> Stack&lt;BinaryTree.TreeNode&gt;();</div><div class="line">		TreeNode node =p;</div><div class="line">		<span class="keyword">while</span>(node!=<span class="keyword">null</span>||stack.size()&gt;<span class="number">0</span>){</div><div class="line">			<span class="comment">//存在左子树</span></div><div class="line">			<span class="keyword">while</span>(node!=<span class="keyword">null</span>){</div><div class="line">				stack.push(node);</div><div class="line">				node=node.leftChild;</div><div class="line">			}</div><div class="line">			<span class="comment">//栈非空</span></div><div class="line">			<span class="keyword">if</span>(stack.size()&gt;<span class="number">0</span>){</div><div class="line">				node=stack.pop();</div><div class="line">				visted(node);</div><div class="line">				node=node.rightChild;</div><div class="line">			}</div><div class="line">		}</div><div class="line">	}</div><div class="line">	</div><div class="line">	<span class="comment">//后序遍历的非递归实现</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">noRecPostOrder</span>(TreeNode p){</div><div class="line">		Stack&lt;TreeNode&gt; stack=<span class="keyword">new</span> Stack&lt;BinaryTree.TreeNode&gt;();</div><div class="line">		TreeNode node =p;</div><div class="line">		<span class="keyword">while</span>(p!=<span class="keyword">null</span>){</div><div class="line">			<span class="comment">//左子树入栈</span></div><div class="line">			<span class="keyword">for</span>(;p.leftChild!=<span class="keyword">null</span>;p=p.leftChild){</div><div class="line">				stack.push(p);</div><div class="line">			}</div><div class="line">			<span class="comment">//当前结点无右子树或右子树已经输出</span></div><div class="line">			<span class="keyword">while</span>(p!=<span class="keyword">null</span>&&(p.rightChild==<span class="keyword">null</span>||p.rightChild==node)){</div><div class="line">				visted(p);</div><div class="line">				<span class="comment">//纪录上一个已输出结点</span></div><div class="line">				node =p;</div><div class="line">				<span class="keyword">if</span>(stack.empty())</div><div class="line">					<span class="keyword">return</span>;</div><div class="line">				p=stack.pop();</div><div class="line">			}</div><div class="line">			<span class="comment">//处理右子树</span></div><div class="line">			stack.push(p);</div><div class="line">			p=p.rightChild;</div><div class="line">		}</div><div class="line">	}</div><div class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visted</span>(TreeNode subTree){</div><div class="line">		subTree.isVisted=<span class="keyword">true</span>;</div><div class="line">		System.<span class="keyword">out</span>.println(<span class="string">"key:"</span>+subTree.key+<span class="string">"--name:"</span>+subTree.data);;</div><div class="line">	}</div><div class="line">	</div><div class="line">	</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 二叉树的节点数据结构</div><div class="line">	 * @author WWX</div><div class="line">	 */</div><div class="line">	<span class="keyword">private</span> <span class="keyword">class</span>  TreeNode{</div><div class="line">		<span class="keyword">private</span> <span class="keyword">int</span> key=<span class="number">0</span>;</div><div class="line">		<span class="keyword">private</span> String data=<span class="keyword">null</span>;</div><div class="line">		<span class="keyword">private</span> boolean isVisted=<span class="keyword">false</span>;</div><div class="line">		<span class="keyword">private</span> TreeNode leftChild=<span class="keyword">null</span>;</div><div class="line">		<span class="keyword">private</span> TreeNode rightChild=<span class="keyword">null</span>;</div><div class="line">		</div><div class="line">		<span class="keyword">public</span> <span class="title">TreeNode</span>(){}</div><div class="line">		</div><div class="line">		<span class="comment">/**</span></div><div class="line">		 * @param key  层序编码</div><div class="line">		 * @param data 数据域</div><div class="line">		 */</div><div class="line">		<span class="keyword">public</span> <span class="title">TreeNode</span>(<span class="keyword">int</span> key,String data){</div><div class="line">			<span class="keyword">this</span>.key=key;</div><div class="line">			<span class="keyword">this</span>.data=data;</div><div class="line">			<span class="keyword">this</span>.leftChild=<span class="keyword">null</span>;</div><div class="line">			<span class="keyword">this</span>.rightChild=<span class="keyword">null</span>;</div><div class="line">		}</div><div class="line"></div><div class="line"></div><div class="line">	}</div><div class="line">	</div><div class="line">	</div><div class="line">	<span class="comment">//测试</span></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(String[] args) {</div><div class="line">        BinaryTree bt = <span class="keyword">new</span> BinaryTree();</div><div class="line">        bt.createBinTree(bt.root);</div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"the size of the tree is "</span> + bt.size());</div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"the height of the tree is "</span> + bt.height());</div><div class="line">        </div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"*******(前序遍历)[ABDECF]遍历*****************"</span>);</div><div class="line">        bt.preOrder(bt.root);</div><div class="line">        </div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"*******(中序遍历)[DBEACF]遍历*****************"</span>);</div><div class="line">        bt.inOrder(bt.root);</div><div class="line">       </div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"*******(后序遍历)[DEBFCA]遍历*****************"</span>);</div><div class="line">        bt.postOrder(bt.root);</div><div class="line">        </div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"***非递归实现****(前序遍历)[ABDECF]遍历*****************"</span>);</div><div class="line">        bt.nonRecPreOrder(bt.root);</div><div class="line">        </div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"***非递归实现****(中序遍历)[DBEACF]遍历*****************"</span>);</div><div class="line">        bt.nonRecInOrder(bt.root);</div><div class="line">        </div><div class="line">        System.<span class="keyword">out</span>.println(<span class="string">"***非递归实现****(后序遍历)[DEBFCA]遍历*****************"</span>);</div><div class="line">        bt.noRecPostOrder(bt.root);</div><div class="line">    }</div><div class="line">}</div><div class="line">&lt;/span&gt;</div></pre></td></tr></table></figure>
+
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/数据结构/">数据结构</a><a href="/tags/二叉树/">二叉树</a><a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://yoursite.com/2014/12/04/二叉树的实现与遍历/" data-title="二叉树的实现与遍历 | Larry&#39;s Hexo!" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/12/04/排序算法一句话总结/"  title="排序算法一句话总结">
+ <strong>下一篇：</strong><br/> 
+ <span>排序算法一句话总结
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树的定义"><span class="toc-number">1.</span> <span class="toc-text">二叉树的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树的遍历"><span class="toc-number">2.</span> <span class="toc-text">二叉树的遍历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树的实现"><span class="toc-number">3.</span> <span class="toc-text">二叉树的实现</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/C/" title="C++">C++<sup>3</sup></a></li>
+		
+			<li><a href="/tags/DLL/" title="DLL">DLL<sup>2</sup></a></li>
+		
+			<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+		
+			<li><a href="/tags/排序/" title="排序">排序<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+		
+			<li><a href="/tags/-cab/" title=".cab">.cab<sup>1</sup></a></li>
+		
+			<li><a href="/tags/字符编码/" title="字符编码">字符编码<sup>1</sup></a></li>
+		
+			<li><a href="/tags/数据结构/" title="数据结构">数据结构<sup>1</sup></a></li>
+		
+			<li><a href="/tags/window/" title="window">window<sup>1</sup></a></li>
+		
+			<li><a href="/tags/String/" title="String">String<sup>1</sup></a></li>
+		
+			<li><a href="/tags/java/" title="java">java<sup>1</sup></a></li>
+		
+			<li><a href="/tags/vb/" title="vb">vb<sup>1</sup></a></li>
+		
+			<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+		
+			<li><a href="/tags/xml/" title="xml">xml<sup>1</sup></a></li>
+		
+			<li><a href="/tags/数据结构，二叉树，Java/" title="数据结构，二叉树，Java">数据结构，二叉树，Java<sup>0</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            <a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+          </li>
+        
+          <li>
+            <a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a>
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://zespia.tw/hexo/" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Pacman">Jacman</a> © 2014 
+		
+		<a href="http://yoursite.com/about" target="_blank" title="Larry Li">Larry Li</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+  </body>
+</html>
