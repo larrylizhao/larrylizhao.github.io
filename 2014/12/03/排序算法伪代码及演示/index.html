@@ -92,7 +92,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序(Insertion_sort)"><span class="toc-number">1.</span> <span class="toc-text">插入排序(Insertion sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序(Merge_Sort)"><span class="toc-number">2.</span> <span class="toc-text">归并排序(Merge Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序(Bubble_sort)"><span class="toc-number">3.</span> <span class="toc-text">冒泡排序(Bubble sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序(Quick_sort)"><span class="toc-number">4.</span> <span class="toc-text">快速排序(Quick sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序(Selection_sort)"><span class="toc-number">5.</span> <span class="toc-text">选择排序(Selection sort)</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序(Insertion_sort)"><span class="toc-number">1.</span> <span class="toc-text">插入排序(Insertion sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序(Merge_Sort)"><span class="toc-number">2.</span> <span class="toc-text">归并排序(Merge Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序(Bubble_sort)"><span class="toc-number">3.</span> <span class="toc-text">冒泡排序(Bubble sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序(Quick_sort)"><span class="toc-number">4.</span> <span class="toc-text">快速排序(Quick sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序(Selection_sort)"><span class="toc-number">5.</span> <span class="toc-text">选择排序(Selection sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#希尔排序"><span class="toc-number">6.</span> <span class="toc-text">希尔排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法比较"><span class="toc-number">7.</span> <span class="toc-text">算法比较</span></a></li></ol>
 		
 		</div>
 		
@@ -164,8 +164,40 @@
 <ol>
 <li>在未排序序列中找到最小（大）元素，存放到排序序列的起始位置。</li>
 <li>再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。</li>
-<li>以此类推，直到所有元素均排序完毕。<br>示例：<br><img src="http://larryimage.qiniudn.com/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F.gif" alt=""></li>
+<li>以此类推，直到所有元素均排序完毕。<br>示例：<br><img src="http://larryimage.qiniudn.com/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F.gif" alt=""><h2 id="希尔排序">希尔排序</h2>
+</li>
 </ol>
+<hr>
+<p>希尔排序的实质就是分组插入排序，该方法又称缩小增量排序，因DL．Shell于1959年提出而得名。</p>
+<p>该方法的基本思想是：先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的）分别进行直接插入排序，然后依次缩减增量再进行排序，待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有较大提高。</p>
+<p>例如，假设有这样一组数<code>[ 13 14 94 33 82 25 59 94 65 23 45 27 73 25 39 10 ]</code>，如果我们以步长为<code>5</code>开始进行排序，我们可以通过将这列表放在有5列的表中来更好地描述算法，这样他们就应该看起来是这样：</p>
+<pre><code>13 14 94 33 82
+25 59 94 65 23
+45 27 73 25 39
+10
+</code></pre><p>然后我们对每列进行排序：</p>
+<pre><code>10 14 73 25 23
+13 27 94 33 39
+25 59 94 65 82
+45
+</code></pre><p>将上述四行数字，依序接在一起时我们得到：<code>[ 10 14 73 25 23 13 27 94 33 39 25 59 94 65 82 45 ]</code>。这时10已经移至正确位置了，然后再以<code>3</code>为步长进行排序：</p>
+<pre><code>10 14 73
+25 23 13
+27 94 33
+39 25 59
+94 65 82
+45
+</code></pre><p>排序之后变为：</p>
+<pre><code>10 14 13
+25 23 33
+27 25 59
+39 65 73
+45 94 82
+94
+</code></pre><p>最后以<code>1</code>步长进行排序（此时就是简单的插入排序了）。</p>
+<h2 id="算法比较">算法比较</h2>
+<p>下面用一张图总结下排序算法的性能：</p>
+<p><img src="http://larryimage.qiniudn.com/%E7%AE%97%E6%B3%95%E6%AF%94%E8%BE%83.jpg" alt=""></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -218,7 +250,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序(Insertion_sort)"><span class="toc-number">1.</span> <span class="toc-text">插入排序(Insertion sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序(Merge_Sort)"><span class="toc-number">2.</span> <span class="toc-text">归并排序(Merge Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序(Bubble_sort)"><span class="toc-number">3.</span> <span class="toc-text">冒泡排序(Bubble sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序(Quick_sort)"><span class="toc-number">4.</span> <span class="toc-text">快速排序(Quick sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序(Selection_sort)"><span class="toc-number">5.</span> <span class="toc-text">选择排序(Selection sort)</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序(Insertion_sort)"><span class="toc-number">1.</span> <span class="toc-text">插入排序(Insertion sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序(Merge_Sort)"><span class="toc-number">2.</span> <span class="toc-text">归并排序(Merge Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序(Bubble_sort)"><span class="toc-number">3.</span> <span class="toc-text">冒泡排序(Bubble sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序(Quick_sort)"><span class="toc-number">4.</span> <span class="toc-text">快速排序(Quick sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序(Selection_sort)"><span class="toc-number">5.</span> <span class="toc-text">选择排序(Selection sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#希尔排序"><span class="toc-number">6.</span> <span class="toc-text">希尔排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法比较"><span class="toc-number">7.</span> <span class="toc-text">算法比较</span></a></li></ol>
  
   </div>
 
