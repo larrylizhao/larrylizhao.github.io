@@ -4,17 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Spring简介 | Larry&#39;s Hexo!</title>
+    <title>Larry&#39;s Hexo!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Larry Li">
     
-    <meta name="description" content="相对于Hibernate（冬眠），Spring（春天），具有更多的诗意与希望的感觉，是为了解决传统J2EE开发效率过低、开发商之间不统一、没有真正实现“写一次到处使用”，它的优点有如下：
-
-
-低侵入式设计，代码污染极低。
-独立于各种应用服务，真正实现写一次到处都可以使用。
-用户可选择的自由度高，用户">
+    <meta name="description" content="title: Spring简介date: 2015-01-22 10:51:54
+tags:[ Java, Spring ]
+相对于Hibernate（冬眠），Spring（春天），具有更多的诗意与希望的感觉，是为了解决传统J2EE开发效率过低、开发商之间不统一、没有真正实现“写一次到处使用”，它的">
     
     
     
@@ -75,7 +72,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/01/22/Spring简介/" title="Spring简介" itemprop="url">Spring简介</a>
+      <a href="/2015/01/22/Spring简介/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
        
@@ -92,18 +89,20 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例一、不同的人说不同的话"><span class="toc-number">1.</span> <span class="toc-text">示例一、不同的人说不同的话</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_建立接口"><span class="toc-number">1.1.</span> <span class="toc-text">1. 建立接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_建立两种具体的人：中国人、美国人"><span class="toc-number">1.2.</span> <span class="toc-text">2. 建立两种具体的人：中国人、美国人</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_建立bean映射配置文件"><span class="toc-number">1.3.</span> <span class="toc-text">3. 建立bean映射配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_建立JAVA测试类："><span class="toc-number">1.4.</span> <span class="toc-text">4. 建立JAVA测试类：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_对以上示例调用的说明："><span class="toc-number">1.5.</span> <span class="toc-text">5. 对以上示例调用的说明：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例二、设值注入"><span class="toc-number">2.</span> <span class="toc-text">示例二、设值注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_建立接口：人与斧头"><span class="toc-number">2.1.</span> <span class="toc-text">1. 建立接口：人与斧头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_建立接口的实现类：中国人与石斧"><span class="toc-number">2.2.</span> <span class="toc-text">2. 建立接口的实现类：中国人与石斧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_建立映射配置文件bean-xml："><span class="toc-number">2.3.</span> <span class="toc-text">3. 建立映射配置文件bean.xml：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_测试用例："><span class="toc-number">2.4.</span> <span class="toc-text">4. 测试用例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_对以上示例调用的说明：-1"><span class="toc-number">2.5.</span> <span class="toc-text">5. 对以上示例调用的说明：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、构造注入"><span class="toc-number">3.</span> <span class="toc-text">三、构造注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_修改实现类Chinese"><span class="toc-number">3.1.</span> <span class="toc-text">1. 修改实现类Chinese</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_修改配置文件bean-xml"><span class="toc-number">3.2.</span> <span class="toc-text">2. 修改配置文件bean.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_设值注入与构造注入比较"><span class="toc-number">3.3.</span> <span class="toc-text">3. 设值注入与构造注入比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、后记"><span class="toc-number">4.</span> <span class="toc-text">四、后记</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:[_Java,_Spring_]"><span class="toc-number">1.</span> <span class="toc-text">tags:[ Java, Spring ]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例一、不同的人说不同的话"><span class="toc-number">2.</span> <span class="toc-text">示例一、不同的人说不同的话</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_建立接口"><span class="toc-number">2.1.</span> <span class="toc-text">1. 建立接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_建立两种具体的人：中国人、美国人"><span class="toc-number">2.2.</span> <span class="toc-text">2. 建立两种具体的人：中国人、美国人</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_建立bean映射配置文件"><span class="toc-number">2.3.</span> <span class="toc-text">3. 建立bean映射配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_建立JAVA测试类："><span class="toc-number">2.4.</span> <span class="toc-text">4. 建立JAVA测试类：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_对以上示例调用的说明："><span class="toc-number">2.5.</span> <span class="toc-text">5. 对以上示例调用的说明：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例二、设值注入"><span class="toc-number">3.</span> <span class="toc-text">示例二、设值注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_建立接口：人与斧头"><span class="toc-number">3.1.</span> <span class="toc-text">1. 建立接口：人与斧头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_建立接口的实现类：中国人与石斧"><span class="toc-number">3.2.</span> <span class="toc-text">2. 建立接口的实现类：中国人与石斧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_建立映射配置文件bean-xml："><span class="toc-number">3.3.</span> <span class="toc-text">3. 建立映射配置文件bean.xml：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_测试用例："><span class="toc-number">3.4.</span> <span class="toc-text">4. 测试用例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_对以上示例调用的说明：-1"><span class="toc-number">3.5.</span> <span class="toc-text">5. 对以上示例调用的说明：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、构造注入"><span class="toc-number">4.</span> <span class="toc-text">三、构造注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_修改实现类Chinese"><span class="toc-number">4.1.</span> <span class="toc-text">1. 修改实现类Chinese</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_修改配置文件bean-xml"><span class="toc-number">4.2.</span> <span class="toc-text">2. 修改配置文件bean.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_设值注入与构造注入比较"><span class="toc-number">4.3.</span> <span class="toc-text">3. 设值注入与构造注入比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、后记"><span class="toc-number">5.</span> <span class="toc-text">四、后记</span></a></li></ol>
 		
 		</div>
 		
-		<p>相对于Hibernate（冬眠），Spring（春天），具有更多的诗意与希望的感觉，是为了解决传统J2EE开发效率过低、开发商之间不统一、没有真正实现“写一次到处使用”，它的优点有如下：</p>
+		<p>title: Spring简介<br>date: 2015-01-22 10:51:54</p>
+<h2 id="tags:[_Java,_Spring_]">tags:[ Java, Spring ]</h2>
+<p>相对于Hibernate（冬眠），Spring（春天），具有更多的诗意与希望的感觉，是为了解决传统J2EE开发效率过低、开发商之间不统一、没有真正实现“写一次到处使用”，它的优点有如下：</p>
 <blockquote>
 <ol>
-<li>低侵入式设计，代码污染极低。</li>
-<li>独立于各种应用服务，真正实现写一次到处都可以使用。</li>
-<li>用户可选择的自由度高，用户可以选择部分或者是全部SPRING的功能，它并不是设计来取代其它框架，可以和其它的框架（如STRUTS、HIBERNATE）等结合极好。</li>
-<li>面向接口的编程方式，使得代码的偶合度降到最低。</li>
-<li>所有的BEAN默认都被会单态化，相同的BEAN只会被初使化一次，因而节省了BEAN初使化的时间及减少垃圾回收，增加了应用效率。</li>
+<li>低侵入式设计，<strong>代码污染极低</strong>。</li>
+<li>独立于各种应用服务，真正实现<strong>写一次到处都可以使用</strong>。</li>
+<li>用户可选择的自由度高，用户可以<strong>选择部分或者是全部SPRING的功能</strong>，它并不是设计来取代其它框架，可以和其它的框架（如STRUTS、HIBERNATE）等结合极好。</li>
+<li>面向接口的编程方式，<strong>使得代码的偶合度降到最低</strong>。</li>
+<li>所有的BEAN默认都被会单态化，相同的BEAN只会被初使化一次，因而<strong>节省了BEAN初使化的时间及减少垃圾回收，增加了应用效率</strong>。</li>
 </ol>
 </blockquote>
 <p>有以上的优点的结合，因而它是被广大程序员所欢迎的，因为它可以给我们带来高效、稳定的开发，很大程度的减少了程序的开发、维护周期，也就自然的减少了软件开发的费用。下面简单的介绍两个应用示例，这些示例都来自于书本，都简单易懂，我也会详细的加以说明，另外需要使用下面的示例，需要引用Spring的JAR包：Spring.jar，该JAR包包括了大部份的应用，如果暂时不需要SPRINT的其它功能，该JAR足以。<br>以下的程序，全部都是调试通过的。</p>
@@ -157,6 +156,7 @@
 <p>它们实现的结果是一样的，<strong>都在将需要被调用的实现类注入到调用的实现类。</strong><br><em>设值注入与传统JAVABEAN的写法一样，比较容易接受；而构造注入在应用程序加载的时候就已经完成了注入，可以控制加载顺序。</em>各有优缺点，根据不同的情况选用了。</p>
 <h2 id="四、后记">四、后记</h2>
 <p>编程中理解与使用SPRING就像是人从学走路到跑步的过程，如果没有理解什么是<strong>单态模式</strong>、<strong>工厂模式</strong>、<strong>反射</strong>、<strong>JAVABEAN</strong>、<strong>XML基础</strong>、<strong>接口及其实现</strong>等等，理解SPRING就会比较困难，就算是可以使用通，也不一定知道为什么，看看网上的一些信息，动不动要求说会不会SPRING、HIBERNATE等等，很少提到基础知识是否扎实。我在面试别人的过程中，往往更注意面试人员的程序基础、编程风格、动手能力、文档编写能力等，当然对当前一些流行的框架也会有提问，毕竟好的东西也是需要借签的。</p>
+<hr>
 <p>本文转载自<a href="http://blog.csdn.net/fenglibing/article/details/4300517" target="_blank" rel="external">冯立彬的博客</a></p>
   
 	</div>
@@ -169,7 +169,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://yoursite.com/2015/01/22/Spring简介/" data-title="Spring简介 | Larry&#39;s Hexo!" data-tsina="null" class="share clearfix">
+  <div data-url="http://yoursite.com/2015/01/22/Spring简介/" data-title="Larry&#39;s Hexo!" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -197,7 +197,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例一、不同的人说不同的话"><span class="toc-number">1.</span> <span class="toc-text">示例一、不同的人说不同的话</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_建立接口"><span class="toc-number">1.1.</span> <span class="toc-text">1. 建立接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_建立两种具体的人：中国人、美国人"><span class="toc-number">1.2.</span> <span class="toc-text">2. 建立两种具体的人：中国人、美国人</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_建立bean映射配置文件"><span class="toc-number">1.3.</span> <span class="toc-text">3. 建立bean映射配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_建立JAVA测试类："><span class="toc-number">1.4.</span> <span class="toc-text">4. 建立JAVA测试类：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_对以上示例调用的说明："><span class="toc-number">1.5.</span> <span class="toc-text">5. 对以上示例调用的说明：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例二、设值注入"><span class="toc-number">2.</span> <span class="toc-text">示例二、设值注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_建立接口：人与斧头"><span class="toc-number">2.1.</span> <span class="toc-text">1. 建立接口：人与斧头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_建立接口的实现类：中国人与石斧"><span class="toc-number">2.2.</span> <span class="toc-text">2. 建立接口的实现类：中国人与石斧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_建立映射配置文件bean-xml："><span class="toc-number">2.3.</span> <span class="toc-text">3. 建立映射配置文件bean.xml：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_测试用例："><span class="toc-number">2.4.</span> <span class="toc-text">4. 测试用例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_对以上示例调用的说明：-1"><span class="toc-number">2.5.</span> <span class="toc-text">5. 对以上示例调用的说明：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、构造注入"><span class="toc-number">3.</span> <span class="toc-text">三、构造注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_修改实现类Chinese"><span class="toc-number">3.1.</span> <span class="toc-text">1. 修改实现类Chinese</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_修改配置文件bean-xml"><span class="toc-number">3.2.</span> <span class="toc-text">2. 修改配置文件bean.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_设值注入与构造注入比较"><span class="toc-number">3.3.</span> <span class="toc-text">3. 设值注入与构造注入比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、后记"><span class="toc-number">4.</span> <span class="toc-text">四、后记</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:[_Java,_Spring_]"><span class="toc-number">1.</span> <span class="toc-text">tags:[ Java, Spring ]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例一、不同的人说不同的话"><span class="toc-number">2.</span> <span class="toc-text">示例一、不同的人说不同的话</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_建立接口"><span class="toc-number">2.1.</span> <span class="toc-text">1. 建立接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_建立两种具体的人：中国人、美国人"><span class="toc-number">2.2.</span> <span class="toc-text">2. 建立两种具体的人：中国人、美国人</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_建立bean映射配置文件"><span class="toc-number">2.3.</span> <span class="toc-text">3. 建立bean映射配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_建立JAVA测试类："><span class="toc-number">2.4.</span> <span class="toc-text">4. 建立JAVA测试类：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_对以上示例调用的说明："><span class="toc-number">2.5.</span> <span class="toc-text">5. 对以上示例调用的说明：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例二、设值注入"><span class="toc-number">3.</span> <span class="toc-text">示例二、设值注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_建立接口：人与斧头"><span class="toc-number">3.1.</span> <span class="toc-text">1. 建立接口：人与斧头</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_建立接口的实现类：中国人与石斧"><span class="toc-number">3.2.</span> <span class="toc-text">2. 建立接口的实现类：中国人与石斧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_建立映射配置文件bean-xml："><span class="toc-number">3.3.</span> <span class="toc-text">3. 建立映射配置文件bean.xml：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_测试用例："><span class="toc-number">3.4.</span> <span class="toc-text">4. 测试用例：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-_对以上示例调用的说明：-1"><span class="toc-number">3.5.</span> <span class="toc-text">5. 对以上示例调用的说明：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、构造注入"><span class="toc-number">4.</span> <span class="toc-text">三、构造注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_修改实现类Chinese"><span class="toc-number">4.1.</span> <span class="toc-text">1. 修改实现类Chinese</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_修改配置文件bean-xml"><span class="toc-number">4.2.</span> <span class="toc-text">2. 修改配置文件bean.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_设值注入与构造注入比较"><span class="toc-number">4.3.</span> <span class="toc-text">3. 设值注入与构造注入比较</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、后记"><span class="toc-number">5.</span> <span class="toc-text">四、后记</span></a></li></ol>
  
   </div>
 
@@ -220,15 +220,17 @@
 		
 			<li><a href="/tags/排序/" title="排序">排序<sup>2</sup></a></li>
 		
+			<li><a href="/tags/Window/" title="Window">Window<sup>1</sup></a></li>
+		
 			<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
-		
-			<li><a href="/tags/-cab/" title=".cab">.cab<sup>1</sup></a></li>
-		
-			<li><a href="/tags/字符编码/" title="字符编码">字符编码<sup>1</sup></a></li>
 		
 			<li><a href="/tags/数据结构/" title="数据结构">数据结构<sup>1</sup></a></li>
 		
-			<li><a href="/tags/window/" title="window">window<sup>1</sup></a></li>
+			<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
+		
+			<li><a href="/tags/xml/" title="xml">xml<sup>1</sup></a></li>
+		
+			<li><a href="/tags/-cab/" title=".cab">.cab<sup>1</sup></a></li>
 		
 			<li><a href="/tags/String/" title="String">String<sup>1</sup></a></li>
 		
@@ -236,11 +238,11 @@
 		
 			<li><a href="/tags/vb/" title="vb">vb<sup>1</sup></a></li>
 		
-			<li><a href="/tags/二叉树/" title="二叉树">二叉树<sup>1</sup></a></li>
-		
-			<li><a href="/tags/xml/" title="xml">xml<sup>1</sup></a></li>
+			<li><a href="/tags/字符编码/" title="字符编码">字符编码<sup>1</sup></a></li>
 		
 			<li><a href="/tags/数据结构，二叉树，Java/" title="数据结构，二叉树，Java">数据结构，二叉树，Java<sup>0</sup></a></li>
+		
+			<li><a href="/tags/window/" title="window">window<sup>0</sup></a></li>
 		
 		</ul>
 </div>
