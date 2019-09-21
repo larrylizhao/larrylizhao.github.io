@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="最近在看一个ClientPrint程序涉及到vc+vb编程，各种以前没有见到过得奇怪的东东我全部摆在这里留念了！##CWPSTRUCT structureDefines the message parameters passed to a WH_CALLWNDPROC hook procedure,CallWndProc.###Syntax:123456typedef struct tagCWPS">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我把看vc遇到的各种鬼全都丢在这里面...!">
+<meta property="og:url" content="http://yoursite.com/2014/11/19/我把看vc遇到的各种鬼全都丢在这里面/index.html">
+<meta property="og:site_name" content="Larry&#39;s Hexo!">
+<meta property="og:description" content="最近在看一个ClientPrint程序涉及到vc+vb编程，各种以前没有见到过得奇怪的东东我全部摆在这里留念了！##CWPSTRUCT structureDefines the message parameters passed to a WH_CALLWNDPROC hook procedure,CallWndProc.###Syntax:123456typedef struct tagCWPS">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-21T05:46:53.392Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我把看vc遇到的各种鬼全都丢在这里面...!">
+<meta name="twitter:description" content="最近在看一个ClientPrint程序涉及到vc+vb编程，各种以前没有见到过得奇怪的东东我全部摆在这里留念了！##CWPSTRUCT structureDefines the message parameters passed to a WH_CALLWNDPROC hook procedure,CallWndProc.###Syntax:123456typedef struct tagCWPS">
+  <link rel="canonical" href="http://yoursite.com/2014/11/19/我把看vc遇到的各种鬼全都丢在这里面/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>我把看vc遇到的各种鬼全都丢在这里面...! | Larry's Hexo!</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Larry's Hexo!</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2014/11/19/我把看vc遇到的各种鬼全都丢在这里面/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Larry Li">
+      <meta itemprop="description" content="Share what I learn">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Larry's Hexo!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">我把看vc遇到的各种鬼全都丢在这里面...!
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：11月 19 2014 10:20:25" itemprop="dateCreated datePublished" datetime="2014-11-19T10:20:25+08:00">11月 19 2014</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：9月 21 2019 13:46:53" itemprop="dateModified" datetime="2019-09-21T13:46:53+08:00">9月 21 2019</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近在看一个ClientPrint程序涉及到vc+vb编程，各种以前没有见到过得奇怪的东东我全部摆在这里留念了！</p><h2 id="CWPSTRUCT-structure"><a href="#CWPSTRUCT-structure" class="headerlink" title="##CWPSTRUCT structure"></a>##CWPSTRUCT structure</h2><p>Defines the message parameters passed to a WH_CALLWNDPROC hook procedure,<br><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644975%28v=vs.85%29.aspx" target="_blank" rel="noopener">CallWndProc</a>.<br>###Syntax:</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">tagCWPSTRUCT</span> &#123;</span></span><br><span class="line">  LPARAM lParam;</span><br><span class="line">  WPARAM wParam;</span><br><span class="line">  UINT   message;</span><br><span class="line">  HWND   hwnd;</span><br><span class="line">&#125; CWPSTRUCT, *PCWPSTRUCT, *LPCWPSTRUCT;</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+
+<p>###Members:</p>
+<p><em>lParam</em><br>　　　Type: <strong>LPARAM</strong><br>　　　Additional information about the message. The exact meaning depends on the <strong>message</strong> value.<br><em>wParam</em><br>　　　Type: <strong>WPARAM</strong><br>　　　Additional information about the message. The exact meaning depends 　　　on the <strong>message</strong> value.<br><em>message</em><br>　　　Type: <strong>UINT</strong><br>　　　The message.<br><em>hwnd</em><br>　　　Type: <strong>HWND</strong><br>　　　A handle to the window to receive the message.</p>
+<h2 id="EnumChildWindows"><a href="#EnumChildWindows" class="headerlink" title="##EnumChildWindows"></a>##EnumChildWindows</h2><pre><code>jiguo 
+fjislfajsd
+fsafijsdf</code></pre><h2 id="CallWndProc-callback-function"><a href="#CallWndProc-callback-function" class="headerlink" title="##CallWndProc callback function"></a>##CallWndProc callback function</h2><p>An application-defined or library-defined callback function used with the <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644990%28v=vs.85%29.aspx" target="_blank" rel="noopener">SetWindowsHookEx</a> function. The system calls this function before calling the window procedure to process a message sent to the thread.</p>
+<p>The <strong>HOOKPROC</strong> type defines a pointer to this callback function. <code>CallWndProc</code> is a placeholder for the application-defined or library-defined function name.<br>###Syntax</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LRESULT CALLBACK <span class="title">CallWndProc</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  _In_  <span class="keyword">int</span> nCode,</span></span></span><br><span class="line"><span class="function"><span class="params">  _In_  WPARAM wParam,</span></span></span><br><span class="line"><span class="function"><span class="params">  _In_  LPARAM lParam</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>###Parameters<br>nCode [in]<br>　　　Type: <strong>int</strong><br>　　　Specifies whether the hook procedure must process the message. If <em>nCode</em> is<br>　　　<strong>HC_ACTION</strong>, the hook procedure must process themessage. If <em>nCode</em> is less<br>　　　than zero, the hook procedure must passthe message to the <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644974%28v=vs.85%29.aspx" target="_blank" rel="noopener">CallNextHookEx</a><br>　　　function without further processing and must return the value returned by<br>　　　<code>CallNextHookEx</code>.<br>wParam [in]<br>　　　Type: <strong>WPARAM</strong><br>　　　Specifies whether the message was sent by the current thread. If the message<br>　　　was sent by the current thread, it is nonzero; otherwise, it is zero.<br>lParam [in]<br>　　　Type: <strong>LPARAM</strong><br>　　　A pointer to a <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644964%28v=vs.85%29.aspx" target="_blank" rel="noopener">CWPSTRUCT</a> structure that contains details about the message.<br>###Return Value<br>Type: <strong>LRESULT</strong><br>If nCode is less than zero, the hook procedure must return the value returned by <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644974%28v=vs.85%29.aspx" target="_blank" rel="noopener">CallNextHookEx</a>.</p>
+<p>If nCode is greater than or equal to zero, it is highly recommended that you call <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644974%28v=vs.85%29.aspx" target="_blank" rel="noopener">CallNextHookEx</a> and return the value it returns; otherwise, other applications that have installed <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms644959%28v=vs.85%29.aspx#wh_callwndproc_wh_callwndprocret" target="_blank" rel="noopener">WH_CALLWNDPROC</a> hooks will not receive hook notifications and may behave incorrectly as a result. If the hook procedure does not call <strong>CallNextHookEx</strong>, the return value should be zero.</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/11/18/Visual Studio 中的部署 - Cab 文件项目/" rel="next" title="Visual Studio 中的部署 - Cab 文件项目">
+                  <i class="fa fa-chevron-left"></i> Visual Studio 中的部署 - Cab 文件项目
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2014/11/19/VB使用Alias子句简介/" rel="prev" title="VB使用Alias子句简介">
+                  VB使用Alias子句简介 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CWPSTRUCT-structure"><span class="nav-number">1.</span> <span class="nav-text">##CWPSTRUCT structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EnumChildWindows"><span class="nav-number">2.</span> <span class="nav-text">##EnumChildWindows</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CallWndProc-callback-function"><span class="nav-number">3.</span> <span class="nav-text">##CallWndProc callback function</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Larry Li</p>
+  <div class="site-description" itemprop="description">Share what I learn</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/larrylizhao" title="GitHub &rarr; https://github.com/larrylizhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:larrylizhao@gmail.com" title="E-Mail &rarr; mailto:larrylizhao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Larry Li</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

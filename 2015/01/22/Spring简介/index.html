@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="相对于Hibernate（冬眠），Spring（春天），具有更多的诗意与希望的感觉，是为了解决传统J2EE开发效率过低、开发商之间不统一、没有真正实现“写一次到处使用”，它的优点有如下：  低侵入式设计，代码污染极低。 独立于各种应用服务，真正实现写一次到处都可以使用。 用户可选择的自由度高，用户可以选择部分或者是全部SPRING的功能，它并不是设计来取代其它框架，可以和其它的框架（如STRUTS">
+<meta name="keywords" content="Java,Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring简介">
+<meta property="og:url" content="http://yoursite.com/2015/01/22/Spring简介/index.html">
+<meta property="og:site_name" content="Larry&#39;s Hexo!">
+<meta property="og:description" content="相对于Hibernate（冬眠），Spring（春天），具有更多的诗意与希望的感觉，是为了解决传统J2EE开发效率过低、开发商之间不统一、没有真正实现“写一次到处使用”，它的优点有如下：  低侵入式设计，代码污染极低。 独立于各种应用服务，真正实现写一次到处都可以使用。 用户可选择的自由度高，用户可以选择部分或者是全部SPRING的功能，它并不是设计来取代其它框架，可以和其它的框架（如STRUTS">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-21T05:46:53.387Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring简介">
+<meta name="twitter:description" content="相对于Hibernate（冬眠），Spring（春天），具有更多的诗意与希望的感觉，是为了解决传统J2EE开发效率过低、开发商之间不统一、没有真正实现“写一次到处使用”，它的优点有如下：  低侵入式设计，代码污染极低。 独立于各种应用服务，真正实现写一次到处都可以使用。 用户可选择的自由度高，用户可以选择部分或者是全部SPRING的功能，它并不是设计来取代其它框架，可以和其它的框架（如STRUTS">
+  <link rel="canonical" href="http://yoursite.com/2015/01/22/Spring简介/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Spring简介 | Larry's Hexo!</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Larry's Hexo!</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/01/22/Spring简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Larry Li">
+      <meta itemprop="description" content="Share what I learn">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Larry's Hexo!">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Spring简介
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：1月 22 2015 10:51:54" itemprop="dateCreated datePublished" datetime="2015-01-22T10:51:54+08:00">1月 22 2015</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：9月 21 2019 13:46:53" itemprop="dateModified" datetime="2019-09-21T13:46:53+08:00">9月 21 2019</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>相对于Hibernate（冬眠），Spring（春天），具有更多的诗意与希望的感觉，是为了解决传统J2EE开发效率过低、开发商之间不统一、没有真正实现“写一次到处使用”，它的优点有如下：</p><blockquote>
+<ol>
+<li>低侵入式设计，<strong>代码污染极低</strong>。</li>
+<li>独立于各种应用服务，真正实现<strong>写一次到处都可以使用</strong>。</li>
+<li>用户可选择的自由度高，用户可以<strong>选择部分或者是全部SPRING的功能</strong>，它并不是设计来取代其它框架，可以和其它的框架（如STRUTS、HIBERNATE）等结合极好。</li>
+<li>面向接口的编程方式，<strong>使得代码的偶合度降到最低</strong>。</li>
+<li>所有的BEAN默认都被会单态化，相同的BEAN只会被初使化一次，因而<strong>节省了BEAN初使化的时间及减少垃圾回收，增加了应用效率</strong>。</li>
+</ol>
+</blockquote><a id="more"></a>
+
+<p>有以上的优点的结合，因而它是被广大程序员所欢迎的，因为它可以给我们带来高效、稳定的开发，很大程度的减少了程序的开发、维护周期，也就自然的减少了软件开发的费用。下面简单的介绍两个应用示例，这些示例都来自于书本，都简单易懂，我也会详细的加以说明，另外需要使用下面的示例，需要引用Spring的JAR包：Spring.jar，该JAR包包括了大部份的应用，如果暂时不需要SPRINT的其它功能，该JAR足以。<br>以下的程序，全部都是调试通过的。<br>##示例一、不同的人说不同的话</p>
+<hr>
+<p>###1. 建立接口<br>工厂模式在SRPING中是随处体现，且提倡面向接口，因此首先建立接口：人</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line">public interface Person &#123;</span><br><span class="line"> public void sayHello();</span><br><span class="line"> public void sayBye();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>###2. 建立两种具体的人：中国人、美国人</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//中国人</span><br><span class="line">package test;</span><br><span class="line">public class Chinese implements Person &#123;</span><br><span class="line"> public void sayBye() &#123;</span><br><span class="line">  System.out.println(&quot;再见&quot;);</span><br><span class="line"> &#125;</span><br><span class="line"> public void sayHello() &#123;</span><br><span class="line">  System.out.println(&quot;你好&quot;);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">//美国人</span><br><span class="line">package test;</span><br><span class="line">public class American implements Person &#123;</span><br><span class="line"> public void sayBye() &#123;</span><br><span class="line">  System.out.println(&quot;Bye&quot;);</span><br><span class="line"> &#125;</span><br><span class="line"> public void sayHello() &#123;</span><br><span class="line">  System.out.println(&quot;hello&quot;);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>###3. 建立bean映射配置文件<br>bean.xml（这个文件名是什么没有关系，在初使化的时候指定给初使化程序就可以）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;gb2312&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE beans PUBLIC &quot;-//SPRING//DTD BEAN//EN&quot;</span><br><span class="line"> &quot;http://www.sprintframework.org/dtd/spring-beans.dtd&quot;&gt;</span><br><span class="line">&lt;beans&gt;</span><br><span class="line">&lt;bean id=&quot;chinese&quot; class=&quot;test.Chinese&quot;/&gt;</span><br><span class="line">&lt;bean id=&quot;american&quot; class=&quot;test.American&quot;/&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>###4. 建立JAVA测试类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public void doIt()&#123;</span><br><span class="line">  /*获取bean映射配置文件，配置文件放于与当前测试类在同一个目录下*/</span><br><span class="line">  ApplicationContext ctx=new FileSystemXmlApplicationContext(getClass().getResource(&quot;bean.xml&quot;).toString());</span><br><span class="line">  Person person=null;</span><br><span class="line">  person=(Person)ctx.getBean(&quot;chinese&quot;);</span><br><span class="line">  person.sayHello();</span><br><span class="line">  person.sayBye();</span><br><span class="line">  </span><br><span class="line">  person=(Person)ctx.getBean(&quot;american&quot;);</span><br><span class="line">  person.sayHello();</span><br><span class="line">  person.sayBye();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>###5. 对以上示例调用的说明：<br>A. 对接口Person和具体实现类Chinese、American就没有什么需要说明的了，和其它的编程方式，都是先定义接口，实现类再通过继承接口实现其方法。<br>B. 映射类中将类的路径定义为一个id的名称，到时系统根据传到的id名称，到配置文件中去找到该类的绝对路径，再通过反射原理加载该类，并返回其对象，这个是通过getBean这个动作完成的。<br>C. 根据里氏代换原则，能够接收父类的地方，都可以接收子类，所以这个时候通过getBean返回的对象（如Chinese或者American），都可以赋给接口Person，这个时候接口类调用其中的方法的时候，因为这个时候父类实际上接受的是子类的对象，因而这个时候调用的就是指定子类的方法。这个时候Spring就帮我们完成了如下工作：</p>
+<pre><code>Person person=new Chinese();</code></pre><p>只是子类不是通过显示给出来的，而是通过Spring工厂通过映射配置生成的。</p>
+<h2 id="示例二、设值注入"><a href="#示例二、设值注入" class="headerlink" title="##示例二、设值注入"></a>##示例二、设值注入</h2><p><strong>设值注入</strong>是<strong>依赖注入</strong>的一种，<strong>依赖注入</strong>早期叫<strong>控制反转(IOC)</strong>，也可以称<strong>反射</strong>，他们的意义都相同。当某个 Java 实例(调用者)需要另一个Java 实例(被调用者)时，在传统的程序设计过程中，通常由调用者来创建被调用者的实例。而在依赖注入的模式下，创建被调用者的工作不再由调用者来完成，通常由 Spring 容器来完成，然后注入调用者，因此称为<strong>控制反转</strong>，也称为<strong>依赖注入</strong>。<br>###1. 建立接口：人与斧头</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//人，定义一个动作：</span><br><span class="line">package test2;</span><br><span class="line">public interface Person &#123;</span><br><span class="line"> public void useAxe();</span><br><span class="line">&#125;</span><br><span class="line">//斧头，定义一个动作：</span><br><span class="line">package test2;</span><br><span class="line">public interface Axe &#123;</span><br><span class="line"> public void chop();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>###2. 建立接口的实现类：中国人与石斧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//中国人</span><br><span class="line">package test2;</span><br><span class="line">public class Chinese implements Person&#123;</span><br><span class="line"> /*默认无参构造方法不管为私的还是公有的，都可以访问，并且要保证bean中存在可以被外界访问的无参构造函数*/</span><br><span class="line"> private Chinese()&#123;&#125;;</span><br><span class="line"> /*定义需要被使用的斧头接口，具体使用什么斧头这里不管*/</span><br><span class="line"> private Axe axe;</span><br><span class="line"> /*定义被注入斧头的set方法，该方法一定要符合JAVABEAN的标准。在运行时候，</span><br><span class="line">  *Sping就会根据配置的&lt;ref local=&quot;&quot;/&gt;，找到需要注入的实现类*/</span><br><span class="line"> public void setAxe(Axe axe)&#123;</span><br><span class="line">  this.axe=axe;</span><br><span class="line"> &#125;</span><br><span class="line"> /*这个时候使用的axe，就不再是接口Axe本身，而是被注入的子类实例，所以这里的chop()动作就是具体子类的chop动作*/</span><br><span class="line"> public void useAxe() &#123;</span><br><span class="line">  axe.chop();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">//石斧</span><br><span class="line">package test2;</span><br><span class="line">public class StoneAxe implements Axe &#123;</span><br><span class="line"> public void chop() &#123;</span><br><span class="line">  System.out.println(&quot;石斧慢慢砍&quot;);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>###3. 建立映射配置文件bean.xml：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;gb2312&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE beans PUBLIC &quot;-//SPRING//DTD BEAN//EN&quot;</span><br><span class="line"> &quot;http://www.sprintframework.org/dtd/spring-beans.dtd&quot;&gt;</span><br><span class="line">&lt;beans&gt;</span><br><span class="line">&lt;bean id=&quot;chinese&quot; class=&quot;test2.Chinese&quot;&gt;</span><br><span class="line"> &lt;!-- 声明实现类test2.Chinese中的属性 --&gt;</span><br><span class="line"> &lt;property name=&quot;axe&quot;&gt;</span><br><span class="line">  &lt;!-- 指定其中声明的属性，需要用本地的那个id对应的class</span><br><span class="line">    这里local的值为&quot;stoneAxe&quot;，表示axe的属性值在注入的时候，</span><br><span class="line">    将会用test2.StoneAxe实例注入，到时在实例类Chinese中使用</span><br><span class="line">    axe的时候，实际上调用的时候StoneAxe的实例</span><br><span class="line">   --&gt;</span><br><span class="line">  &lt;ref local=&quot;stoneAxe&quot;/&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;bean id=&quot;stoneAxe&quot; class=&quot;test2.StoneAxe&quot;/&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>###4. 测试用例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package test2;</span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.support.FileSystemXmlApplicationContext;</span><br><span class="line">public class Caller &#123;</span><br><span class="line"> public static void main(String[] args) &#123;</span><br><span class="line">  Caller caller=new Caller();</span><br><span class="line">  caller.doIt();  </span><br><span class="line"> &#125;</span><br><span class="line"> public  void doIt()&#123;</span><br><span class="line">  String bean=getClass().getResource(&quot;bean.xml&quot;).toString();</span><br><span class="line">  ApplicationContext ctx=new FileSystemXmlApplicationContext(bean);</span><br><span class="line">  Person person=(Person)ctx.getBean(&quot;chinese&quot;);</span><br><span class="line">  person.useAxe();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>###5. 对以上示例调用的说明：<br>程序及XML文件中都有详细说明，这里就不说明了。</p>
+<h2 id="三、构造注入"><a href="#三、构造注入" class="headerlink" title="##三、构造注入"></a>##三、构造注入</h2><p>构造注入即是通过构造函数进行注入，到目前为止，SPRINT支持<strong>设值注入</strong>与<strong>构造注入</strong>两种方式，它们可以同时存在。<br>现在采用的实例为了和设值注入进行对比，因此使用的程序都是设值注入的程序，其中的接口和测试实例都不需要修改，修改的只是需要被注入的实现类Chinese，以及配置文件，不同之处用加粗体表示。</p>
+<p>###1. 修改实现类Chinese</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package test2;</span><br><span class="line">public class Chinese implements Person&#123;</span><br><span class="line"> /*默认无参构造方法不管为私的还是公有的，都可以访问，并且要保证bean中存在可以被外界访问的无参构造函数*/</span><br><span class="line"> private Chinese()&#123;&#125;; </span><br><span class="line"> /*定义需要被使用的斧头接口，具体使用什么斧头这里不管*/</span><br><span class="line"> private Axe axe;</span><br><span class="line"> public Chinese(Axe axe)&#123;</span><br><span class="line">  this.axe=axe;</span><br><span class="line"> &#125;</span><br><span class="line"> /*这个时候使用的axe，就不再是接口Axe本身，而是被注入的子类实例，所以这里的chop()动作就是具体子类的chop动作*/</span><br><span class="line"> public void useAxe() &#123;</span><br><span class="line">  axe.chop();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>###2. 修改配置文件bean.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;gb2312&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE beans PUBLIC &quot;-//SPRING//DTD BEAN//EN&quot;</span><br><span class="line"> &quot;http://www.sprintframework.org/dtd/spring-beans.dtd&quot;&gt;</span><br><span class="line">&lt;beans&gt;</span><br><span class="line">&lt;bean id=&quot;chinese&quot; class=&quot;test2.Chinese&quot;&gt;</span><br><span class="line">&lt;!-- 定义需要被构造注入的实现类，同设值注入的结果一样，都是注入接口的实现类 --&gt;</span><br><span class="line"> &lt;constructor-arg&gt;&lt;ref bean=&quot;stoneAxe&quot;/&gt;&lt;/constructor-arg&gt;</span><br><span class="line"> &lt;/bean&gt;</span><br><span class="line">&lt;bean id=&quot;stoneAxe&quot; class=&quot;test2.StoneAxe&quot;/&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>###3. 设值注入与构造注入比较<br>它们实现的结果是一样的，<strong>都在将需要被调用的实现类注入到调用的实现类。</strong><br><em>设值注入与传统JAVABEAN的写法一样，比较容易接受；而构造注入在应用程序加载的时候就已经完成了注入，可以控制加载顺序。</em>各有优缺点，根据不同的情况选用了。</p>
+<p>##四、后记<br>编程中理解与使用SPRING就像是人从学走路到跑步的过程，如果没有理解什么是<strong>单态模式</strong>、<strong>工厂模式</strong>、<strong>反射</strong>、<strong>JAVABEAN</strong>、<strong>XML基础</strong>、<strong>接口及其实现</strong>等等，理解SPRING就会比较困难，就算是可以使用通，也不一定知道为什么，看看网上的一些信息，动不动要求说会不会SPRING、HIBERNATE等等，很少提到基础知识是否扎实。我在面试别人的过程中，往往更注意面试人员的程序基础、编程风格、动手能力、文档编写能力等，当然对当前一些流行的框架也会有提问，毕竟好的东西也是需要借签的。</p>
+<hr>
+<p>本文转载自<a href="http://blog.csdn.net/fenglibing/article/details/4300517" target="_blank" rel="noopener">冯立彬的博客</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+            
+              <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2014/12/04/二叉树的实现与遍历/" rel="next" title="二叉树的实现与遍历">
+                  <i class="fa fa-chevron-left"></i> 二叉树的实现与遍历
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/21/hello-world/" rel="prev" title="Hello World">
+                  Hello World <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例二、设值注入"><span class="nav-number">1.</span> <span class="nav-text">##示例二、设值注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、构造注入"><span class="nav-number">2.</span> <span class="nav-text">##三、构造注入</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Larry Li</p>
+  <div class="site-description" itemprop="description">Share what I learn</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/larrylizhao" title="GitHub &rarr; https://github.com/larrylizhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:larrylizhao@gmail.com" title="E-Mail &rarr; mailto:larrylizhao@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Larry Li</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
