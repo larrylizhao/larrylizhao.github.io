@@ -1,0 +1,2 @@
+# blog
+Backup for Hexo.
